@@ -3,7 +3,6 @@ import "dart:developer";
 import "package:flutter/material.dart";
 import "package:nsbm_eventmanagentapplication/view/addeventororganization.dart";
 import "package:nsbm_eventmanagentapplication/view/bookings.dart";
-import "package:nsbm_eventmanagentapplication/view/dashboard.dart";
 import "package:nsbm_eventmanagentapplication/view/profile.dart";
 import "package:nsbm_eventmanagentapplication/view/search.dart";
 import "package:nsbm_eventmanagentapplication/view/timeline.dart";
@@ -18,7 +17,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentTab = 0;
   final List<Widget> screens = [
-    Dashboard(),
     TimeLine(),
     Search(),
     AddEventOrOrganizationPage(),
@@ -27,7 +25,7 @@ class _HomeState extends State<Home> {
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = Dashboard();
+  Widget currentScreen = TimeLine();
 
   @override
   Widget build(BuildContext context) {
