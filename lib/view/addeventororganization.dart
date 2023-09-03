@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:nsbm_eventmanagentapplication/home.dart';
 import 'package:nsbm_eventmanagentapplication/view/timeline.dart';
 class AddEventOrOrganizationPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _AddEventOrOrganizationPageState
   }
 
   void _showBottomSheet() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       showModalBottomSheet(
         context: context,
         builder: (context) {
