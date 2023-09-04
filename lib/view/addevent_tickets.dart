@@ -50,6 +50,21 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
     }
   }
 
+    Future<void> _selectDate(BuildContext context) async {
+    final DateTime pickedDate = (await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    ))!;
+    if (pickedDate != DateTime.now()) {
+      setState(() {
+        dateController.text =
+            "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+      });
+    }
+  }
+
   @override
   void dispose() {
     eventController.dispose();
@@ -116,15 +131,20 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children:  [
+                           children: [
                             const Text('Date'),
                             TextField(
                               controller: dateController,
                               keyboardType: TextInputType.datetime,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter the date',
-                                suffixIcon: Icon(Icons.calendar_today),
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.calendar_today),
+                                  onPressed: () {
+                                    _selectDate(context);
+                                  },
+                                ),
                               ),
                             ),
                           ],
