@@ -11,7 +11,7 @@ class _AddEventOrOrganizationPageState
   @override
   void initState() {
     super.initState();
-    _showBottomSheet(); // Show the bottom sheet when the page is opened
+    _showBottomSheet(); 
   }
 
   @override
@@ -22,34 +22,38 @@ class _AddEventOrOrganizationPageState
   }
 
   void _showBottomSheet() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context); 
-                  },
-                  child: Text('Add Organization'),
-                ),
-                SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Code to handle adding new event
-                    Navigator.pop(context); // Close the bottom sheet
-                  },
-                  child: Text('Add New Event'),
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    });
-  }
+  WidgetsBinding.instance!.addPostFrameCallback((_) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(16.0),
+          width: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.business), 
+                label: Text('Add Organization'),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.event), 
+                label: Text('Add New Event'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  });
+}
+
 }
