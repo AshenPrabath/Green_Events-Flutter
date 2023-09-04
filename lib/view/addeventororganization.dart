@@ -14,13 +14,13 @@ class _AddEventOrOrganizationPageState
   @override
   void initState() {
     super.initState();
-    _showBottomSheet(); // Show the bottom sheet when the page is opened
+    _showBottomSheet(); 
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TimeLine(), // This will use TimeLine from the view/timeline.dart file.
+      body: TimeLine(), 
     );
   }
 
@@ -36,18 +36,18 @@ class _AddEventOrOrganizationPageState
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); // Close the bottom sheet
+                    Navigator.pop(context); 
                   },
                   child: Text('Add Organization'),
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigate to the AddEventTicketPage when "Add New Event" is pressed
+                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Addevent_ticketPage(), // Replace AddEventTicketPage with the correct class name
+                        builder: (context) => Addevent_ticketPage(),
                       ),
                     );
                   },
