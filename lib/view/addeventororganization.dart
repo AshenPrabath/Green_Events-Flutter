@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:nsbm_eventmanagentapplication/view/addevent_tickets.dart';
 // ignore: unused_import
-import 'package:nsbm_eventmanagentapplication/home.dart';
-import 'package:nsbm_eventmanagentapplication/view/timeline.dart';
+import 'package:nsbm_eventmanagentapplication/view/timeline.dart' hide TimeLine;
+
 class AddEventOrOrganizationPage extends StatefulWidget {
   @override
   _AddEventOrOrganizationPageState createState() =>
       _AddEventOrOrganizationPageState();
 }
+
 class _AddEventOrOrganizationPageState
     extends State<AddEventOrOrganizationPage> {
   @override
@@ -18,7 +20,7 @@ class _AddEventOrOrganizationPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TimeLine(),
+      body: TimeLine(), // This will use TimeLine from the view/timeline.dart file.
     );
   }
 
@@ -34,15 +36,20 @@ class _AddEventOrOrganizationPageState
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); 
+                    Navigator.pop(context); // Close the bottom sheet
                   },
                   child: Text('Add Organization'),
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Code to handle adding new event
-                    Navigator.pop(context); // Close the bottom sheet
+                    // Navigate to the AddEventTicketPage when "Add New Event" is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Addevent_ticketPage(), // Replace AddEventTicketPage with the correct class name
+                      ),
+                    );
                   },
                   child: Text('Add New Event'),
                 ),
