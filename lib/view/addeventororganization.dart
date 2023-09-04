@@ -14,7 +14,7 @@ class _AddEventOrOrganizationPageState
   @override
   void initState() {
     super.initState();
-    _showBottomSheet(); 
+    _showBottomSheet(); // Show the bottom sheet when the page is opened
   }
 
   @override
@@ -25,7 +25,7 @@ class _AddEventOrOrganizationPageState
   }
 
   void _showBottomSheet() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -36,15 +36,20 @@ class _AddEventOrOrganizationPageState
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); 
+                    Navigator.pop(context); // Close the bottom sheet
                   },
                   child: Text('Add Organization'),
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Code to handle adding new event
-                    Navigator.pop(context); // Close the bottom sheet
+                    // Navigate to the AddEventTicketPage when "Add New Event" is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Addevent_ticketPage(), // Replace AddEventTicketPage with the correct class name
+                      ),
+                    );
                   },
                   child: Text('Add New Event'),
                 ),
