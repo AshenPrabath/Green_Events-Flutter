@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class TimeLine extends StatelessWidget {
   const TimeLine({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   
     return const Center(
       child: Text(''),
     );
@@ -15,21 +14,18 @@ class TimeLine extends StatelessWidget {
 }
 
 // ignore: camel_case_types
-class Addevent_ticketPage  extends StatefulWidget {
-  const Addevent_ticketPage ({Key? key}) : super(key: key);
-
+class Addevent_ticketPage extends StatefulWidget {
+  const Addevent_ticketPage({Key? key}) : super(key: key);
 
   @override
-  State<Addevent_ticketPage > createState() => _Addevent_ticketPageState();
+  State<Addevent_ticketPage> createState() => _Addevent_ticketPageState();
 }
 
-
 // ignore: camel_case_types
-class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
+class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
   int currentTab = 0;
   final List<Widget> screens = [
     const Addevent_ticketPage(),
-    
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const Addevent_ticketPage();
@@ -44,7 +40,14 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
   TextEditingController urlController = TextEditingController();
 
   Future<void> _pickImage() async {
-  
+    final picker = ImagePicker();
+    final pickedImage = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+      });
+    }
   }
 
   @override
@@ -113,7 +116,7 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children:  [
                             const Text('Date'),
                             TextField(
                               controller: dateController,
@@ -133,15 +136,15 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(''),
+                          children:  [
+                            const Text('Time'),
                             TextField(
                               controller: timeController,
                               keyboardType: TextInputType.datetime,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter the time',
-                                suffixIcon: Icon(Icons.access_time), 
+                                suffixIcon: Icon(Icons.access_time),
                               ),
                             ),
                           ],
@@ -155,18 +158,18 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Short sub-title to the event',
-                      suffixIcon: Icon(Icons.location_on_outlined), 
+                      suffixIcon: Icon(Icons.location_on_outlined),
                     ),
                   ),
                   const Text('Description'),
                   SizedBox(
-                    width: double.infinity, 
+                    width: double.infinity,
                     child: TextField(
                       controller: descriptionController,
-                      maxLines: 4, 
+                      maxLines: 4,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: '', 
+                        hintText: '',
                       ),
                     ),
                   ),
@@ -177,7 +180,7 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Paste external URL',
-                      suffixIcon: Icon(Icons.link), 
+                      suffixIcon: Icon(Icons.link),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -185,7 +188,7 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                       
+                        // Handle button press
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF006D3E),
@@ -206,7 +209,7 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                      
+                        // Handle button press
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD1E8D4),
@@ -227,4 +230,10 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage > {
       ),
     );
   }
+}
+
+void main() {
+  runApp(const MaterialApp(
+    home: Addevent_ticketPage(),
+  ));
 }
