@@ -81,8 +81,8 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // Handle back button press here, if needed.
-        return true; // Set to true to allow back navigation, or false to block it.
+      
+        return true; 
       },
       child: Scaffold(
         appBar: PreferredSize(
@@ -139,17 +139,19 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('Date'),
-                              TextField(
-                                controller: dateController,
-                                keyboardType: TextInputType.datetime,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(),
-                                  hintText: 'Enter the date',
-                                  suffixIcon: IconButton(
-                                    icon: const Icon(Icons.calendar_today),
-                                    onPressed: () {
-                                      _selectDate(context);
-                                    },
+                              InkWell(
+                                onTap: () {
+                                  _selectDate(context);
+                                },
+                                child: IgnorePointer(
+                                  child: TextField(
+                                    controller: dateController,
+                                    keyboardType: TextInputType.datetime,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Select the date',
+                                      suffixIcon: Icon(Icons.calendar_today),
+                                    ),
                                   ),
                                 ),
                               ),
