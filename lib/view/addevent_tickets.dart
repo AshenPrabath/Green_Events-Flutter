@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:nsbm_eventmanagentapplication/view/addtickets.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    home: Addevent_ticketPage(),
+  ));
+}
 
 class TimeLine extends StatelessWidget {
   const TimeLine({Key? key}) : super(key: key);
@@ -41,6 +48,7 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
+    // ignore: deprecated_member_use
     final pickedImage = await picker.getImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
@@ -66,6 +74,19 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
     }
   }
 
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        timeController.text = "${pickedTime.hour}:${pickedTime.minute}";
+      });
+    }
+  }
+
   @override
   void dispose() {
     eventController.dispose();
@@ -81,8 +102,7 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-      
-        return true; 
+        return true;
       },
       child: Scaffold(
         appBar: PreferredSize(
@@ -166,13 +186,20 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('Time'),
-                              TextField(
-                                controller: timeController,
-                                keyboardType: TextInputType.datetime,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Enter the time',
-                                  suffixIcon: Icon(Icons.access_time),
+                              InkWell(
+                                onTap: () {
+                                  _selectTime(context);
+                                },
+                                child: IgnorePointer(
+                                  child: TextField(
+                                    controller: timeController,
+                                    keyboardType: TextInputType.datetime,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Select the time',
+                                      suffixIcon: Icon(Icons.access_time),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -237,7 +264,12 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Handle button press
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AddticketsPage(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFD1E8D4),
@@ -261,8 +293,3 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
   }
 }
 
-void main() {
-  runApp(const MaterialApp(
-    home: Addevent_ticketPage(),
-  ));
-}
