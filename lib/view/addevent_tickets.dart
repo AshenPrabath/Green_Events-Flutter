@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:nsbm_eventmanagentapplication/view/addtickets.dart';
+import 'package:nsbm_eventmanagentapplication/view/input_textfield.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -45,6 +46,8 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
   TextEditingController venueController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController urlController = TextEditingController();
+
+  String eventTitle = '';
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
@@ -108,9 +111,9 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Container(
-            color: const Color(0xFFD1E8D4),
+            color: Theme.of(context).colorScheme.secondaryContainer,
             child: AppBar(
-              backgroundColor: const Color(0xFFD1E8D4),
+               backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
               title: const Text('Add Event'),
             ),
           ),
@@ -143,36 +146,42 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Event Title'),
-                    TextField(
-                      controller: eventController,
-                      keyboardType: TextInputType.emailAddress,
+                    InputTextField(
+                      labelText: "Event Title",
+                      hint: "Give a title to the event",
+                      onChanged: (text) {
+                        setState(() {
+                          eventTitle = text;
+                        });
+                      },
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: 'Give a title to the event',
                       ),
+                      controller: eventController,
                     ),
+                    const SizedBox(height: 16), 
                     Row(
                       children: [
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('Date'),
-                              InkWell(
+                              GestureDetector(
                                 onTap: () {
                                   _selectDate(context);
                                 },
-                                child: IgnorePointer(
-                                  child: TextField(
-                                    controller: dateController,
-                                    keyboardType: TextInputType.datetime,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'Select the date',
-                                      suffixIcon: Icon(Icons.calendar_today),
-                                    ),
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: dateController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Date',
+                                    hintText: 'Select the date',
+                                    border: OutlineInputBorder(),
+                                    suffixIcon: Icon(Icons.calendar_today),
                                   ),
+                                  onTap: () {
+                                    _selectDate(context);
+                                  },
                                 ),
                               ),
                             ],
@@ -185,21 +194,22 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('Time'),
-                              InkWell(
+                              GestureDetector(
                                 onTap: () {
                                   _selectTime(context);
                                 },
-                                child: IgnorePointer(
-                                  child: TextField(
-                                    controller: timeController,
-                                    keyboardType: TextInputType.datetime,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'Select the time',
-                                      suffixIcon: Icon(Icons.access_time),
-                                    ),
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: timeController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Time',
+                                    hintText: 'Select the time',
+                                    suffixIcon: Icon(Icons.access_time),
                                   ),
+                                  onTap: () {
+                                    _selectTime(context);
+                                  },
                                 ),
                               ),
                             ],
@@ -207,16 +217,20 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                         ),
                       ],
                     ),
-                    const Text('Venue'),
-                    TextField(
+                    const SizedBox(height: 16), 
+                    InputTextField(
+                      labelText: 'Venue',
+                      onChanged: (value) {},
                       controller: venueController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Short sub-title to the event',
-                        suffixIcon: Icon(Icons.location_on_outlined),
                       ),
+                      suffixIcon: Icons.location_on_outlined,
                     ),
+                    const SizedBox(height: 16), 
                     const Text('Description'),
+                    const SizedBox(height: 16), 
                     SizedBox(
                       width: double.infinity,
                       child: TextField(
@@ -228,17 +242,18 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                         ),
                       ),
                     ),
-                    const Text('External URL'),
-                    TextField(
-                      controller: urlController,
-                      keyboardType: TextInputType.url,
+                    const SizedBox(height: 16), 
+                    InputTextField(
+                      labelText: 'External URL',
+                      onChanged: (value) {},
+                      controller: venueController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Paste external URL',
-                        suffixIcon: Icon(Icons.link),
                       ),
+                      suffixIcon: Icons.link,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 16), 
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -246,7 +261,7 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                           // Handle button press
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF006D3E),
+                         backgroundColor: Theme.of(context).colorScheme.primary,
                         ),
                         child: const Text(
                           'Publish As a free event',
@@ -256,10 +271,11 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 8), 
                     const Center(
                       child: Text('or'),
                     ),
+                    const SizedBox(height: 8), 
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -272,7 +288,7 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFD1E8D4),
+                           backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                         ),
                         child: const Text(
                           'Add Tickets',
@@ -292,4 +308,3 @@ class _Addevent_ticketPageState extends State<Addevent_ticketPage> {
     );
   }
 }
-
