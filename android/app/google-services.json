@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "418536885912",
+    "project_id": "flutter-material-components-v1",
+    "storage_bucket": "flutter-material-components-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418536885912:android:e9e4292d25ca2c59540aed",
+        "android_client_info": {
+          "package_name": "com.application.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOzyCo5l4wUhTTiCPHTKRzjAwRQsJXMnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418536885912:android:393ec34ecde9ed8f540aed",
+        "android_client_info": {
+          "package_name": "com.example.flutter_material_components_v1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOzyCo5l4wUhTTiCPHTKRzjAwRQsJXMnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
