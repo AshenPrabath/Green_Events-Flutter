@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-// ignore: unused_import
-import 'package:flutter/scheduler.dart';
-import 'package:application8/theme/theme_helper.dart';
-import 'package:application8/routes/app_routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'auth/auth_page.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
-
-  ///Please update theme as per your need if required.
-  ThemeHelper().changeTheme('primary');
-  runApp(MyApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: theme,
-      title: 'application8',
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.enterCardDetailsScreen,
-      routes: AppRoutes.routes,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // colorScheme: lightColorScheme,
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 0, 109, 64)),
+        useMaterial3: true,
+      ),
+      home: const AuthPage(),
     );
   }
 }
