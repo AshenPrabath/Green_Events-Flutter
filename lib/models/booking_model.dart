@@ -60,4 +60,4 @@ class Booking {
 
   @override
   int get hashCode => userId.hashCode ^ ticketID.hashCode ^ createdAt.hashCode;
-};
+}
