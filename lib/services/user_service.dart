@@ -62,7 +62,7 @@ class UserService {
   static Future<AppUser.User> getUserById(id) async {
     try {
       final DocumentSnapshot userSnapshot =
-          await FirebaseFirestore.instance.collection('users').doc(id).get();
+          await FirebaseFirestore.instance.collection('user').doc(id).get();
 
       if (userSnapshot.exists) {
         final Map<String, dynamic> userData =

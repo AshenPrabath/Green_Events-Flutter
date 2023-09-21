@@ -21,8 +21,8 @@ class ProfileData extends StatelessWidget {
             ClipRRect(
               child: Image.asset(
                 "lib/assets/3d_avatar_18.png",
-                width: 105,
-                height: 105,
+                width: 90,
+                height: 90,
               ),
             ),
             Padding(
@@ -32,14 +32,14 @@ class ProfileData extends StatelessWidget {
                 children: [
                   Text(
                     user.name,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Theme.of(context).colorScheme.onBackground),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       user.email,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.onBackground),
                     ),
                   ),

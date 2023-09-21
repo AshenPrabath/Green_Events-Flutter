@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
+import 'package:application8/models/user_model.dart';
+import 'package:application8/services/user_service.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import '../models/event_model.dart';
 import '../services/event_service.dart';
 
@@ -15,6 +20,23 @@ class EventCard extends StatefulWidget {
 }
 
 class _EventCardState extends State<EventCard> {
+  DateTime get dateTime =>
+      DateTime.fromMillisecondsSinceEpoch(widget.event.time);
+  String get formattedDate => formatTimestampDate(widget.event.time);
+  String get formattedTime => formatTimestampTime(widget.event.time);
+
+  String formatTimestampDate(int timestamp) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String formattedDate = DateFormat('d MMMM yyyy').format(dateTime);
+    return ' $formattedDate';
+  }
+
+  String formatTimestampTime(int timestamp) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String formattedTime = DateFormat('hh:mm a').format(dateTime);
+    return formattedTime;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -45,13 +67,26 @@ class _EventCardState extends State<EventCard> {
               ),
               subtitle: Row(
                 children: [
+                  FutureBuilder<User>(
+                      future: UserService.getUserById(widget.event.userId),
+                      builder: (context, snapshot) {
+                        log(snapshot.toString());
+                        if (snapshot.hasData) {
+                          return Text(
+                            snapshot.data!.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant),
+                          );
+                        }
+                        return const Text("Loading");
+                      }),
                   Text(
-                    '${widget.event.userId} |',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  ),
-                  Text(
-                    ' ${widget.event.time}',
+                    ' | $formattedTime',
                     style: TextStyle(color: Colors.black.withOpacity(0.6)),
                   ),
                 ],
@@ -66,7 +101,7 @@ class _EventCardState extends State<EventCard> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -83,13 +118,13 @@ class _EventCardState extends State<EventCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "📅 Date : 20th July 2023",
+                        "📅 Date : $formattedDate",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant),
                       ),
                       Text(
-                        "⏰ Time : 9.00 am",
+                        "⏰ Time : $formattedTime",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant),
@@ -105,13 +140,17 @@ class _EventCardState extends State<EventCard> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                widget.event.desc,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
-              ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    widget.event.desc,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
