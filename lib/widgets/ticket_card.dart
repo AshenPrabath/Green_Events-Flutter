@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/event_model.dart';
-import '../Models/ticket_model.dart';
+import '../models/ticket_model.dart';
 
 class TicketCard extends StatelessWidget {
   // final Event event;
