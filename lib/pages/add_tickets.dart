@@ -48,15 +48,15 @@ class _AddTicketState extends State<AddTicket> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: ticketsList.length, // Use ticketsList here
-        itemBuilder: (context, index) {
-          return TicketCard(
-            // event: widget.event,
-            ticket: ticketsList[index],
-          ); // Use ticketsList here
-        },
-      ),
+      // body: ListView.builder(
+      //   itemCount: ticketsList.length, // Use ticketsList here
+      //   itemBuilder: (context, index) {
+      //     return TicketCard(
+      //       // event: widget.event,
+      //       ticket: ticketsList[index],
+      //     ); // Use ticketsList here
+      //   },
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(

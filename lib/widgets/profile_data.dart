@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/user_model.dart';
 import '../pages/add_organization_page.dart';
-import '../Pages/settings_page.dart';
+import '../pages/settings_page.dart';
 
 class ProfileData extends StatelessWidget {
   final User user;
