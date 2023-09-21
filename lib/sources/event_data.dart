@@ -12,5 +12,6 @@ List<Event> dummyEvents = [
     venue: "ground",
     desc: "description description description ",
     isFree: false,
+    createdAt: 1694320757,
   )
 ];
