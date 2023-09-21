@@ -1,3 +1,4 @@
+import 'package:application8/services/ticket_service.dart';
 import 'package:flutter/material.dart';
 
 import '../models/ticket_model.dart';
@@ -9,7 +10,8 @@ class AddTicket extends StatefulWidget {
   // final Event event;
   final String eventId;
   const AddTicket({
-    Key? key, required this.eventId,
+    Key? key,
+    required this.eventId,
     // required this.event,
   }) : super(key: key);
 
@@ -49,22 +51,31 @@ class _AddTicketState extends State<AddTicket> {
           ),
         ],
       ),
-      // body: ListView.builder(
-      //   itemCount: ticketsList.length, // Use ticketsList here
-      //   itemBuilder: (context, index) {
-      //     return TicketCard(
-      //       // event: widget.event,
-      //       ticket: ticketsList[index],
-      //     ); // Use ticketsList here
-      //   },
-      // ),
+      body: FutureBuilder(
+        future: TicketService.getAllTickets(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final List<Ticket> tickets = snapshot.data!;
+
+            return ListView.builder(
+                itemCount: tickets.length,
+                itemBuilder: (context, index) {
+                  return TicketCard(ticket: tickets[index]);
+                });
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
             context: context,
             builder: (context) {
               return AddTicketDialog(
-                onTicketAdded: _addTicket, eventId: widget.eventId,
+                onTicketAdded: _addTicket,
+                eventId: widget.eventId,
               );
             },
           );

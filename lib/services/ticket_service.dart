@@ -34,6 +34,19 @@ class TicketService {
     }
   }
 
+  static Future<List<Ticket>> getAllTickets() async {
+    final ticketsCollection = FirebaseFirestore.instance.collection('ticket');
+
+    try {
+      final querySnapshot = await ticketsCollection.get();
+      final List<Ticket> tickets =
+          querySnapshot.docs.map((doc) => Ticket.fromMap(doc.data())).toList();
+      return tickets;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
   static Future<Ticket> getTicketById(id) async {
     try {
       final DocumentSnapshot userSnapshot =
