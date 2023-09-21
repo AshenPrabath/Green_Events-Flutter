@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/event_model.dart';
-import '../source/fake_events.dart';
+import '../sources/fake_events.dart';
 
 class EventService {
   static Future<List<Event>> getAll() async {
