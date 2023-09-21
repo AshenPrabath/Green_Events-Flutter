@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/ticket_model.dart';
-import '../source/ticket_data.dart';
+import '../sources/ticket_data.dart';
 import '../widgets/add_tickets_dialog.dart';
 import '../widgets/ticket_card.dart';
 
