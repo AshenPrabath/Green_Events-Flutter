@@ -1,10 +1,18 @@
+import 'package:application8/models/event_model.dart';
+import 'package:application8/models/ticket_model.dart';
 import 'package:flutter/material.dart';
 import '../widgets/input_textfield.dart';
 import '../widgets/total_price_container.dart';
 
-class ticketSmall extends StatelessWidget {
-  const ticketSmall({super.key});
+class ticketSmall extends StatefulWidget {
+  
+  const ticketSmall({super.key,});
 
+  @override
+  State<ticketSmall> createState() => _ticketSmallState();
+}
+
+class _ticketSmallState extends State<ticketSmall> {
   @override
   Widget build(BuildContext context) {
     return OverflowBar(
@@ -43,7 +51,7 @@ class ticketSmall extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 11),
                             child: Text(
-                              "event.eventTitle",
+                              "widget.event!.title",
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -67,7 +75,7 @@ class ticketSmall extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 6),
                               child: Text(
-                                "event.ticketType",
+                                "widget.ticket!.ticketName",
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelLarge
@@ -115,7 +123,7 @@ class ticketSmall extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(bottom: 21),
                               child: Text(
-                                "ticket.ticketPrice",
+                                "widget.ticket!.ticketPrice.toString()",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
@@ -142,7 +150,7 @@ class ticketSmall extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 21),
                             child: Text(
-                              "ticket.ticketPrice",
+                              "widget.quantity.toString()",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium
@@ -157,7 +165,7 @@ class ticketSmall extends StatelessWidget {
                     ],
                   ),
                 ),
-                TotalPriceContainer()
+                TotalPriceContainer(totalPrice: 10,)
               ],
             ),
           ),

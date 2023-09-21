@@ -1,8 +1,36 @@
+import 'package:application8/models/ticket_model.dart';
+import 'package:application8/models/user_model.dart';
+import 'package:application8/services/user_service.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class TicketMedium extends StatelessWidget {
-  const TicketMedium({super.key});
+import '../models/event_model.dart';
 
+class TicketMedium extends StatefulWidget {
+  final Event event;
+  const TicketMedium({super.key,required this.event});
+
+  @override
+  State<TicketMedium> createState() => _TicketMediumState();
+}
+
+class _TicketMediumState extends State<TicketMedium> {
+  DateTime get dateTime =>
+      DateTime.fromMillisecondsSinceEpoch(widget.event.time);
+  String get formattedDate => formatTimestampDate(widget.event.time);
+  String get formattedTime => formatTimestampTime(widget.event.time);
+
+  String formatTimestampDate(int timestamp) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String formattedDate = DateFormat('d MMMM yyyy').format(dateTime);
+    return ' $formattedDate';
+  }
+
+  String formatTimestampTime(int timestamp) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String formattedTime = DateFormat('hh:mm a').format(dateTime);
+    return formattedTime;
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +66,7 @@ class TicketMedium extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 11),
                         child: Text(
-                          "event.eventTitle",
+                          widget.event.title,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall
@@ -79,7 +107,7 @@ class TicketMedium extends StatelessWidget {
                       Padding(
                           padding: EdgeInsets.only(bottom: 21),
                           child: Text(
-                            "event.eventDate",
+                            formattedDate,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -95,14 +123,21 @@ class TicketMedium extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 0),
-                        child: Text(
-                          "event.ownerName",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                        child: FutureBuilder<User>(
+                          future: UserService.getCurrentUser(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Text(snapshot.data!.name);
+                            }
+                            return Text("Loading...",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.onSurface),
+                            );
+                          }
                         ),
                       ),
                     ],
@@ -118,7 +153,7 @@ class TicketMedium extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 21),
                         child: Text(
-                          "event.eventTime",
+                          formattedTime,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
@@ -135,7 +170,7 @@ class TicketMedium extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 0),
                         child: Text(
-                          "event.eventVenue",
+                          widget.event.venue,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium

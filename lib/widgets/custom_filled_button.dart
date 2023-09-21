@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 class CustomFilledButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String buttonText;
   final Color? buttonColor;
   final Color? buttonTextColor;
   final double? width;
+  final bool? isDisabled;
   const CustomFilledButton({
     Key? key,
-    required this.onPressed,
+    this.onPressed,
     required this.buttonText,
     this.buttonColor,
     this.buttonTextColor,
-    this.width,
+    this.width, 
+    this.isDisabled,
   }) : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class CustomFilledButton extends StatelessWidget {
           backgroundColor: buttonColor,
         ),
         onPressed: onPressed,
+        
         child: Text(
           buttonText,
           style: TextStyle(color: buttonTextColor),

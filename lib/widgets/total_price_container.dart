@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TotalPriceContainer extends StatelessWidget {
+class TotalPriceContainer extends StatefulWidget {
+  final double totalPrice;
   const TotalPriceContainer({
-    super.key,
+    super.key, required this.totalPrice,
   });
 
+  @override
+  State<TotalPriceContainer> createState() => _TotalPriceContainerState();
+}
+
+class _TotalPriceContainerState extends State<TotalPriceContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +23,7 @@ class TotalPriceContainer extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Center(
           child: Text(
-            "Total Price ${"event.ticketCount"} LKR",
+            "Total Price : ${widget.totalPrice.toInt()} LKR",
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer),
           ),

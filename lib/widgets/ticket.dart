@@ -201,7 +201,7 @@ class TicketWidget extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.only(top: 30),
-              child: TotalPriceContainer(),
+              child: TotalPriceContainer(totalPrice: 10,),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),

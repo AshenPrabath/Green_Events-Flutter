@@ -1,37 +1,60 @@
+import 'package:application8/models/event_model.dart';
+import 'package:application8/pages/select_payment_method_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../models/ticket_model.dart';
 import '../widgets/custom_filled_button.dart';
 import '../widgets/custom_toggle_button.dart';
 import '../widgets/ticket_medium.dart';
 import '../widgets/total_price_container.dart';
 
 class BuyTicketPage extends StatefulWidget {
-  const BuyTicketPage({super.key});
+  final Event event ;
+  final List<Ticket> tickets ;
+  const BuyTicketPage({super.key, required this.event, required this.tickets});
 
   @override
   State<BuyTicketPage> createState() => _BuyTicketPageState();
 }
 
 class _BuyTicketPageState extends State<BuyTicketPage> {
+  double totalPrice=0;
+  int ticketCount=0;
+  double ticketPrice=0;
+  Ticket? selectedTicket;
+  Event? selectedEvent;
   int selectedButtonIndex = -1;
-  int ticketCount = 0;
 
   void incrementTicketCount() {
     setState(() {
+
       ticketCount++;
+      totalPrice=ticketCount*ticketPrice;
     });
   }
 
   void decrementTicketCount() {
     setState(() {
       ticketCount--;
+      totalPrice=ticketCount*ticketPrice;
     });
   }
 
-  void onSelectButton(int index) {
+  void onSelectButton(int index, Ticket ticket) {
     setState(() {
+      ticketPrice = ticket.ticketPrice;
+      totalPrice = ticketCount * ticketPrice;
       selectedButtonIndex = index;
+      selectedTicket = ticket;
     });
   }
+
+  List<Ticket>  sortedTickets() {
+    
+    final List<Ticket> tickets = widget.tickets;
+    widget.tickets.sort((a, b) => a.ticketPrice.compareTo(b.ticketPrice));
+    return tickets;
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -53,32 +76,49 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Column(
                 children: [
-                  const TicketMedium(),
+                   TicketMedium( event: widget.event,),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 11),
-                    child: OverflowBar(
-                      overflowSpacing: 11,
-                      children: [
-                        CustomToggleButton(
-                          ticketType: "label",
-                          ticketPrice: 2000,
-                          isSelected: selectedButtonIndex == 0,
-                          onSelect: (isSelected) => onSelectButton(0),
+                    child: Expanded(
+                      
+                      child: ListView.builder(
+                        itemCount: widget.tickets.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context,index){
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 11),
+                            child: CustomToggleButton(
+                              isSelected: selectedButtonIndex==index, 
+                              onSelect:(val)=> onSelectButton(index,val), 
+                              ticket: sortedTickets()[index],
+                              ),
+                          );
+                        }
                         ),
-                        CustomToggleButton(
-                          ticketType: "label",
-                          ticketPrice: 2000,
-                          isSelected: selectedButtonIndex == 1,
-                          onSelect: (isSelected) => onSelectButton(1),
-                        ),
-                        CustomToggleButton(
-                          ticketType: "label",
-                          ticketPrice: 2000,
-                          isSelected: selectedButtonIndex == 2,
-                          onSelect: (isSelected) => onSelectButton(2),
-                        ),
-                      ],
                     ),
+                    // child: OverflowBar(
+                    //   overflowSpacing: 11,
+                    //   children: [
+                    //     CustomToggleButton(
+                    //       ticketType: "label",
+                    //       ticketPrice: 2000,
+                    //       isSelected: selectedButtonIndex == 0,
+                    //       onSelect: (isSelected) => onSelectButton(0),
+                    //     ),
+                    //     CustomToggleButton(
+                    //       ticketType: "label",
+                    //       ticketPrice: 2000,
+                    //       isSelected: selectedButtonIndex == 1,
+                    //       onSelect: (isSelected) => onSelectButton(1),
+                    //     ),
+                    //     CustomToggleButton(
+                    //       ticketType: "label",
+                    //       ticketPrice: 2000,
+                    //       isSelected: selectedButtonIndex == 2,
+                    //       onSelect: (isSelected) => onSelectButton(2),
+                    //     ),
+                    //   ],
+                    // ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 23),
@@ -88,6 +128,7 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
                         FilledButton(
                           onPressed: () {
                             if (ticketCount > 0) {
+                            
                               decrementTicketCount();
                             }
                           },
@@ -137,14 +178,20 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 9),
-                    child: TotalPriceContainer(),
+                   Padding(
+                    padding: const EdgeInsets.only(bottom: 9),
+                    child: TotalPriceContainer(totalPrice: totalPrice,),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: CustomFilledButton(
-                        onPressed: () {}, buttonText: "Buy Ticket(s)"),
+                        onPressed: ticketCount==0? null : () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  SelectPaymentMethod()),
+                            );
+                        }, buttonText: "Buy Ticket(s)"),
                   )
                 ],
               ),

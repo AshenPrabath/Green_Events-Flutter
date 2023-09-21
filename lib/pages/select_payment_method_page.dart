@@ -1,17 +1,23 @@
+import 'package:application8/models/event_model.dart';
 import 'package:flutter/material.dart';
+import '../models/ticket_model.dart';
 import '../pages/enter_card_details.dart';
 import '../widgets/custom_filled_button.dart';
 import '../widgets/custom_paymentmethod_button.dart';
 
-class SelectPayment extends StatefulWidget {
-  const SelectPayment({super.key});
+class SelectPaymentMethod extends StatefulWidget {
+  const SelectPaymentMethod({super.key});
 
   @override
-  State<SelectPayment> createState() => _SelectPaymentState();
+  State<SelectPaymentMethod> createState() => _SelectPaymentMethodState();
 }
 
-class _SelectPaymentState extends State<SelectPayment> {
+class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
+   String ticketID="";
+   int? quantity;
   int selectedButtonIndex = -1;
+  Ticket? selectedTicket;
+  Event? selectedEvent;
   void onSelectButton(int index) {
     setState(() {
       selectedButtonIndex = index;
@@ -73,7 +79,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const EnterCardDetails()),
+                                       EnterCardDetails()),
                             );
                           },
                           buttonText: "Confirm"),

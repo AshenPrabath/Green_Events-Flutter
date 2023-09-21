@@ -28,8 +28,8 @@ class _EventsPageState extends State<EventsPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         // child: EventCard(event: EventService.getEvent()),
-        child: FutureBuilder(
-          future: EventService.getAllEvents(),
+        child: StreamBuilder(
+          stream: EventService.listenGetAllEvents(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final List<Event> events = snapshot.data!;

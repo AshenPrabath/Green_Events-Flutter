@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../models/ticket_model.dart';
+
 class CustomToggleButton extends StatefulWidget {
-  final String ticketType;
-  final double ticketPrice;
+  final Ticket ticket;
   final bool isSelected;
-  final Function(bool) onSelect;
+  final Function(Ticket) onSelect;
   const CustomToggleButton({
     super.key,
-    required this.ticketType,
     required this.isSelected,
     required this.onSelect,
-    required this.ticketPrice,
+    required this.ticket,
   });
 
   @override
@@ -23,7 +23,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton> {
     return GestureDetector(
       onTap: () {
         if (!widget.isSelected) {
-          widget.onSelect(true);
+          widget.onSelect(widget.ticket);
         }
       },
       child: Container(
@@ -44,14 +44,14 @@ class _CustomToggleButtonState extends State<CustomToggleButton> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                widget.ticketType,
+                widget.ticket.ticketName,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
                     ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
               Text(
-                "LKR ${widget.ticketPrice}",
+                "LKR ${widget.ticket.ticketPrice.toInt()}",
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:application8/models/ticket_model.dart';
 import 'package:application8/models/user_model.dart';
+import 'package:application8/pages/buy%20Ticket_page.dart';
 import 'package:application8/services/event_service.dart';
 import 'package:application8/services/ticket_service.dart';
 import 'package:application8/services/user_service.dart';
@@ -171,7 +172,13 @@ return min;
                   if (snapshot.data!.isEmpty) {
                     return FreeEventRow(onPressed: (){});
                   }
-                  return PaidEventRow(onPressed: (){}, ticket: getMinimumTicket(snapshot.data!),);
+                  return PaidEventRow(onPressed: (){
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>  BuyTicketPage(event: widget.event, tickets: snapshot.data!,)),
+                        );
+                  }, ticket: getMinimumTicket(snapshot.data!),);
                 }
                 return const Text("Loading");
               }
