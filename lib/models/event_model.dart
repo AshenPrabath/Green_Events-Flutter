@@ -12,6 +12,7 @@ class Event {
   final String desc;
   final bool isFree;
   final String? link;
+  final int createdAt;
   Event({
     required this.id,
     required this.userId,
@@ -22,6 +23,7 @@ class Event {
     required this.desc,
     required this.isFree,
     this.link,
+    required this.createdAt,
   });
 
   Event copyWith({
@@ -34,6 +36,7 @@ class Event {
     String? desc,
     bool? isFree,
     String? link,
+    int? createdAt,
   }) {
     return Event(
       id: id ?? this.id,
@@ -45,6 +48,7 @@ class Event {
       desc: desc ?? this.desc,
       isFree: isFree ?? this.isFree,
       link: link ?? this.link,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -59,6 +63,7 @@ class Event {
       'desc': desc,
       'isFree': isFree,
       'link': link,
+      'createdAt': createdAt,
     };
   }
 
@@ -73,6 +78,7 @@ class Event {
       desc: map['desc'] ?? '',
       isFree: map['isFree'] ?? false,
       link: map['link'],
+      createdAt: map['createdAt']?.toInt() ?? 0,
     );
   }
 
@@ -82,7 +88,7 @@ class Event {
 
   @override
   String toString() {
-    return 'Event(id: $id, userId: $userId, title: $title, image: $image, time: $time, venue: $venue, desc: $desc, isFree: $isFree, link: $link)';
+    return 'Event(id: $id, userId: $userId, title: $title, image: $image, time: $time, venue: $venue, desc: $desc, isFree: $isFree, link: $link, createdAt: $createdAt)';
   }
 
   @override
@@ -98,7 +104,8 @@ class Event {
         other.venue == venue &&
         other.desc == desc &&
         other.isFree == isFree &&
-        other.link == link;
+        other.link == link &&
+        other.createdAt == createdAt;
   }
 
   @override
@@ -111,6 +118,7 @@ class Event {
         venue.hashCode ^
         desc.hashCode ^
         isFree.hashCode ^
-        link.hashCode;
+        link.hashCode ^
+        createdAt.hashCode;
   }
 }
