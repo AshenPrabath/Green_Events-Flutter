@@ -15,11 +15,11 @@ class TicketMiniCard extends StatelessWidget {
     const double borderRadius = 12.0;
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => TicketPage(event: event),
-          ),
-        );
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => TicketPage(event: event),
+        //   ),
+        // );
       },
       child: Container(
         height: 80,

@@ -23,10 +23,10 @@ class TicketPage extends StatelessWidget {
               ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(23.0),
-        child: TicketWidget(event: event),
-      ),
+      // body: Padding(
+      //   padding: const EdgeInsets.all(23.0),
+      //   child: TicketWidget(event: event),
+      // ),
     );
   }
 }
