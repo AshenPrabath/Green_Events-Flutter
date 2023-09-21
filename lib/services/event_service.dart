@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/event_model.dart';
+import '../services/user_service.dart';
 import '../sources/fake_events.dart';
 
 class EventService {
@@ -59,13 +60,23 @@ class EventService {
     }
   }
 
-  static Future<Event> getEvent() async {
+  static Future<Event> getEventById(id) async {
     try {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-      final event = await firestore.collection('event').doc().get();
-      return Event.fromMap(event.data() as Map<String, dynamic>);
+      final DocumentSnapshot userSnapshot =
+          await FirebaseFirestore.instance.collection('event').doc(id).get();
+
+      if (userSnapshot.exists) {
+        final Map<String, dynamic> eventData =
+            userSnapshot.data() as Map<String, dynamic>;
+
+        final Event event = Event.fromMap(eventData);
+
+        return event;
+      } else {
+        throw AuthFailure(message: 'User not found');
+      }
     } catch (e) {
-      throw e.toString();
+      throw AuthFailure(message: e.toString());
     }
   }
 }

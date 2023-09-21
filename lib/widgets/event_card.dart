@@ -1,7 +1,12 @@
 import 'dart:developer';
 
+import 'package:application8/models/ticket_model.dart';
 import 'package:application8/models/user_model.dart';
+import 'package:application8/services/event_service.dart';
+import 'package:application8/services/ticket_service.dart';
 import 'package:application8/services/user_service.dart';
+import 'package:application8/widgets/free_event_row.dart';
+import 'package:application8/widgets/paid_event_row.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/event_model.dart';
@@ -35,6 +40,18 @@ class _EventCardState extends State<EventCard> {
     return formattedTime;
   }
 
+  Ticket getMinimumTicket(List<Ticket> tickets) {
+Ticket min = tickets[0];
+    for (Ticket ticket in tickets) {
+      if (ticket.ticketPrice < min.ticketPrice) {
+        min = ticket;
+      }
+    }
+return min;
+
+
+   }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -66,23 +83,24 @@ class _EventCardState extends State<EventCard> {
               subtitle: Row(
                 children: [
                   FutureBuilder<User>(
-                      future: UserService.getUserById(widget.event.userId),
-                      builder: (context, snapshot) {
-                        log(snapshot.toString());
-                        if (snapshot.hasData) {
-                          return Text(
-                            snapshot.data!.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurfaceVariant),
-                          );
-                        }
-                        return const Text("Loading");
-                      }),
+                    future: UserService.getUserById(widget.event.userId),
+                    builder: (context, snapshot) {
+                      log(snapshot.toString());
+                      if (snapshot.hasData) {
+                        return Text(
+                          snapshot.data!.name,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant),
+                        );
+                      }
+                      return const Text("Loading");
+                    },
+                  ),
                   Text(
                     ' | $formattedTime',
                     style: TextStyle(color: Colors.black.withOpacity(0.6)),
@@ -146,25 +164,20 @@ class _EventCardState extends State<EventCard> {
                     color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text('Free Registration '),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: FilledButton(
-                    onPressed: () {},
-                    child: const Text('Register'),
-                  ),
-                ),
-              ],
-            ),
+            FutureBuilder(
+              future: TicketService.getAllTicketsByEventID(widget.event.id), 
+              builder: (context, snapshot){
+                if (snapshot.hasData) {
+                  if (snapshot.data!.isEmpty) {
+                    return FreeEventRow(onPressed: (){});
+                  }
+                  return PaidEventRow(onPressed: (){}, ticket: getMinimumTicket(snapshot.data!),);
+                }
+                return const Text("Loading");
+              }
+              
+              )
+            
           ],
         ),
       ),

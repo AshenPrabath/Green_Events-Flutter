@@ -1,3 +1,5 @@
+import 'package:application8/services/event_service.dart';
+import 'package:application8/services/user_service.dart';
 import 'package:flutter/material.dart';
 
 import '../models/event_model.dart';
@@ -5,11 +7,12 @@ import '../models/ticket_model.dart';
 
 class TicketCard extends StatelessWidget {
   // final Event event;
+  final String eventId;
   final Ticket ticket;
   const TicketCard({
     Key? key,
     // required this.event,
-    required this.ticket,
+    required this.ticket, required this.eventId,
   }) : super(key: key);
 
   @override
@@ -34,14 +37,29 @@ class TicketCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 11.0),
-                  child: Text(
-                    " event.eventTitle",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface),
+                  child: FutureBuilder<Event>(
+                    future: EventService.getEventById(eventId),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        final err = snapshot.error;
+                        if (err is AuthFailure) {
+                        return Text(err.message);
+                        }
+                      }
+                      if (snapshot.hasData) {
+                        return Text(
+                          snapshot.data!.title,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
+                        );
+                        
+                      }
+                      return const Text("Loading..");
+                    }
                   ),
                 ),
                 Text(
-                  "Ticket Count : ${ticket.ticketCount.toString()}",
+                  "Ticket Count : ${ticket.ticketCount}",
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
@@ -71,7 +89,7 @@ class TicketCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: Text(
-                    ticket.ticketType,
+                    ticket.ticketName,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onSurface),
                   ),

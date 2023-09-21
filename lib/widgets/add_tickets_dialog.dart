@@ -15,7 +15,7 @@ class AddTicketDialog extends StatefulWidget {
 }
 
 class _AddTicketDialogState extends State<AddTicketDialog> {
-  String ticketType = '';
+  String ticketName = '';
   double ticketPrice = 0;
   int ticketCount = 0;
   @override
@@ -31,23 +31,24 @@ class _AddTicketDialogState extends State<AddTicketDialog> {
               InputTextField(
                 labelText: "Ticket name",
                 hint: "Enter ticket name",
-                onChanged: (ticketType) {
-                  ticketType = ticketType;
+                onChanged: (inputIicketType) {
+                  ticketName = inputIicketType;
                 },
               ),
               InputTextField(
                 textInputType: TextInputType.number,
                 labelText: "Ticket Price",
                 hint: "Enter ticket Price (LKR)",
-                onChanged: (ticketPriceDialog) {
-                  ticketPrice = double.parse(ticketPriceDialog);
+                onChanged: (inputIicketPrice) {
+                  ticketPrice = double.parse(inputIicketPrice);
                 },
               ),
               InputTextField(
+                textInputType: TextInputType.number,
                 labelText: "Available No of tickets",
                 hint: "Enter amount",
-                onChanged: (ticketCountDialog) {
-                  ticketType = ticketCountDialog;
+                onChanged: (inputIicketCount) {
+                  ticketCount = int.parse(inputIicketCount);
                 },
               ),
             ],
@@ -70,7 +71,7 @@ class _AddTicketDialogState extends State<AddTicketDialog> {
           onPressed: () {
             TicketService.addTicket(
               widget.eventId,
-              ticketType,
+              ticketName,
               ticketPrice,
               ticketCount,
             );

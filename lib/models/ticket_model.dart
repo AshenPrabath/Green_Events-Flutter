@@ -3,14 +3,14 @@ import 'dart:convert';
 class Ticket {
   final String id;
   final String eventId;
-  final String ticketType;
+  final String ticketName;
   final double ticketPrice;
   final int ticketCount;
 
   Ticket({
     required this.id,
     required this.eventId,
-    required this.ticketType,
+    required this.ticketName,
     required this.ticketPrice,
     required this.ticketCount,
   });
@@ -18,14 +18,14 @@ class Ticket {
   Ticket copyWith({
     String? id,
     String? eventId,
-    String? ticketType,
+    String? ticketName,
     double? ticketPrice,
     int? ticketCount,
   }) {
     return Ticket(
       id: id ?? this.id,
       eventId: eventId ?? this.eventId,
-      ticketType: ticketType ?? this.ticketType,
+      ticketName: ticketName ?? this.ticketName,
       ticketPrice: ticketPrice ?? this.ticketPrice,
       ticketCount: ticketCount ?? this.ticketCount,
     );
@@ -35,7 +35,7 @@ class Ticket {
     return {
       'id': id,
       'eventId': eventId,
-      'ticketType': ticketType,
+      'ticketName': ticketName,
       'ticketPrice': ticketPrice,
       'ticketCount': ticketCount,
     };
@@ -45,7 +45,7 @@ class Ticket {
     return Ticket(
       id: map['id'] ?? '',
       eventId: map['eventId'] ?? '',
-      ticketType: map['ticketType'] ?? '',
+      ticketName: map['ticketName'] ?? '',
       ticketPrice: map['ticketPrice']?.toDouble() ?? 0.0,
       ticketCount: map['ticketCount']?.toInt() ?? 0,
     );
@@ -57,7 +57,7 @@ class Ticket {
 
   @override
   String toString() {
-    return 'Ticket(id: $id, eventId: $eventId, ticketType: $ticketType, ticketPrice: $ticketPrice, ticketCount: $ticketCount)';
+    return 'Ticket(id: $id, eventId: $eventId, ticketName: $ticketName, ticketPrice: $ticketPrice, ticketCount: $ticketCount)';
   }
 
   @override
@@ -67,7 +67,7 @@ class Ticket {
     return other is Ticket &&
         other.id == id &&
         other.eventId == eventId &&
-        other.ticketType == ticketType &&
+        other.ticketName == ticketName &&
         other.ticketPrice == ticketPrice &&
         other.ticketCount == ticketCount;
   }
@@ -76,7 +76,7 @@ class Ticket {
   int get hashCode {
     return id.hashCode ^
         eventId.hashCode ^
-        ticketType.hashCode ^
+        ticketName.hashCode ^
         ticketPrice.hashCode ^
         ticketCount.hashCode;
   }

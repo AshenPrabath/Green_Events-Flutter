@@ -51,22 +51,29 @@ class _AddTicketState extends State<AddTicket> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: TicketService.getAllTickets(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final List<Ticket> tickets = snapshot.data!;
-
-            return ListView.builder(
-                itemCount: tickets.length,
-                itemBuilder: (context, index) {
-                  return TicketCard(ticket: tickets[index]);
-                });
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        child: StreamBuilder<List<Ticket>>(
+          stream: TicketService.getTicketsByEventId(eventId: widget.eventId),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error.toString()),);
+            }
+            print(snapshot);
+            if (snapshot.hasData) {
+              final List<Ticket> tickets = snapshot.data!;
+      
+              return ListView.builder(
+                  itemCount: tickets.length,
+                  itemBuilder: (context, index) {
+                    return TicketCard(ticket: tickets[index],eventId: widget.eventId,);
+                  });
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

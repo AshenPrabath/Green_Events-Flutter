@@ -6,7 +6,7 @@ import 'user_service.dart';
 class TicketService {
   static Future<void> addTicket(
     String eventId,
-    String ticketType,
+    String ticketName,
     double ticketPrice,
     int ticketCount,
   ) async {
@@ -15,7 +15,7 @@ class TicketService {
       await doc.set({
         'id': doc.id,
         'eventId': eventId,
-        'ticketType': ticketType,
+        'ticketName': ticketName,
         'ticketPrice': ticketPrice,
         'ticketCount': ticketCount,
       });
@@ -34,14 +34,29 @@ class TicketService {
     }
   }
 
-  static Future<List<Ticket>> getAllTickets() async {
+  static Stream<List<Ticket>> getAllTickets() async* {
     final ticketsCollection = FirebaseFirestore.instance.collection('ticket');
 
     try {
-      final querySnapshot = await ticketsCollection.get();
-      final List<Ticket> tickets =
-          querySnapshot.docs.map((doc) => Ticket.fromMap(doc.data())).toList();
-      return tickets;
+ yield* ticketsCollection.snapshots().map((snapshot) {
+
+       return  snapshot.docs.map((e) => Ticket.fromMap(e.data())).toList();
+      });
+  
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  static Stream<List<Ticket>> getTicketsByEventId({required String eventId}) async* {
+    final ticketsCollection = FirebaseFirestore.instance.collection('ticket').where("eventId",isEqualTo: eventId);
+
+    try {
+ yield* ticketsCollection.snapshots().map((snapshot) {
+
+       return  snapshot.docs.map((e) => Ticket.fromMap(e.data())).toList();
+      });
+  
     } catch (e) {
       throw e.toString();
     }
@@ -64,6 +79,19 @@ class TicketService {
       }
     } catch (e) {
       throw AuthFailure(message: e.toString());
+    }
+  }
+
+  static Future<List<Ticket>> getAllTicketsByEventID(String id) async {
+    final ticketsCollection = FirebaseFirestore.instance.collection('ticket');
+
+    try {
+      final querySnapshot = await ticketsCollection.where("eventId", isEqualTo: id).get();
+      final List<Ticket> tickets =
+          querySnapshot.docs.map((doc) => Ticket.fromMap(doc.data())).toList();
+      return tickets;
+    } catch (e) {
+      throw e.toString();
     }
   }
 }
