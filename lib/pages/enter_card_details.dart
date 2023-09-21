@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_material_components_v1/widgets/custom_filled_button.dart';
-import 'package:flutter_material_components_v1/widgets/input_textfield.dart';
-import 'package:flutter_material_components_v1/widgets/month_picker_textfield.dart';
-import 'package:flutter_material_components_v1/widgets/ticket_small.dart';
+import '../widgets/custom_filled_button.dart';
+import '../widgets/input_textfield.dart';
+import '../widgets/month_picker_textfield.dart';
+import '../widgets/ticket_small.dart';
 
 class EnterCardDetails extends StatefulWidget {
   const EnterCardDetails({super.key});
