@@ -9,6 +9,7 @@ class InputTextField extends StatelessWidget {
   final String? helperText;
   final TextInputType? textInputType;
   final bool? isOptional;
+  final bool? isEnabled;
   final Function(String) onChanged;
   const InputTextField({
     Key? key,
@@ -21,6 +22,7 @@ class InputTextField extends StatelessWidget {
     this.textInputType,
     required this.onChanged,
     this.isOptional,
+    this.isEnabled,
   }) : super(key: key);
 
   @override
@@ -45,13 +47,15 @@ class InputTextField extends StatelessWidget {
           }
           return null;
         },
+        enabled: isEnabled,
         obscureText: isPassword ?? false,
         decoration: InputDecoration(
-            suffixIcon: Icon(suffixIcon),
-            border: const OutlineInputBorder(),
-            labelText: labelText,
-            hintText: hint,
-            helperText: helperText),
+          suffixIcon: Icon(suffixIcon),
+          border: const OutlineInputBorder(),
+          labelText: labelText,
+          hintText: hint,
+          helperText: helperText,
+        ),
       ),
     );
   }
