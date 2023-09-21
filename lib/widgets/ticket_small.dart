@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_material_components_v1/widgets/input_textfield.dart';
-import 'package:flutter_material_components_v1/widgets/total_price_container.dart';
+import '../widgets/input_textfield.dart';
+import '../widgets/total_price_container.dart';
 
 class ticketSmall extends StatelessWidget {
   const ticketSmall({super.key});
