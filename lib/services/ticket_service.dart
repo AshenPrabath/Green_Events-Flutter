@@ -5,7 +5,6 @@ import 'user_service.dart';
 
 class TicketService {
   static Future<void> addTicket(
-    String id,
     String eventId,
     String ticketType,
     double ticketPrice,

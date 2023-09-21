@@ -1,23 +1,24 @@
 // add_ticket_dialog.dart
+import 'package:application8/services/ticket_service.dart';
 import 'package:flutter/material.dart';
 import '../models/ticket_model.dart';
 import '../widgets/input_textfield.dart';
 
-class AddTicketDialog extends StatelessWidget {
+class AddTicketDialog extends StatefulWidget {
   final Function(Ticket) onTicketAdded;
 
   const AddTicketDialog({required this.onTicketAdded});
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController titleController = TextEditingController();
-    TextEditingController countController = TextEditingController();
-    TextEditingController typeController = TextEditingController();
-    TextEditingController priceController = TextEditingController();
-    String ticketType = "";
-    int ticketPrice;
-    String ticketCount = "";
+  State<AddTicketDialog> createState() => _AddTicketDialogState();
+}
 
+class _AddTicketDialogState extends State<AddTicketDialog> {
+  String ticketType = '';
+  double ticketPrice = 0;
+  int ticketCount = 0;
+  @override
+  Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text("Add Ticket"),
       content: Column(
@@ -29,15 +30,16 @@ class AddTicketDialog extends StatelessWidget {
               InputTextField(
                 labelText: "Ticket name",
                 hint: "Enter ticket name",
-                onChanged: (ticketNameDialog) {
-                  ticketType = ticketNameDialog;
+                onChanged: (ticketType) {
+                  ticketType = ticketType;
                 },
               ),
               InputTextField(
+                textInputType: TextInputType.number,
                 labelText: "Ticket Price",
                 hint: "Enter ticket Price (LKR)",
                 onChanged: (ticketPriceDialog) {
-                  ticketPrice = int.parse(ticketPriceDialog);
+                  ticketPrice = double.parse(ticketPriceDialog);
                 },
               ),
               InputTextField(
@@ -63,19 +65,18 @@ class AddTicketDialog extends StatelessWidget {
           },
           child: const Text("Cancel"),
         ),
-        // TextButton(
-        //   onPressed: () {
-        //     onTicketAdded(
-        //       Ticket(
-        //         ticketCount: int.parse(ticketCount),
-        //         ticketType: typeController.text,
-        //         ticketPrice: int.parse(priceController.text),
-        //       ),
-        //     );
-        //     Navigator.of(context).pop();
-        //   },
-        //   child: const Text("Add"),
-        // ),
+        TextButton(
+          onPressed: () {
+            TicketService.addTicket(
+              eventId,
+              ticketType,
+              ticketPrice,
+              ticketCount,
+            );
+            Navigator.of(context).pop();
+          },
+          child: const Text("Add"),
+        ),
       ],
     );
   }
