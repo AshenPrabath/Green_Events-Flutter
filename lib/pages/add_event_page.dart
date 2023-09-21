@@ -1,3 +1,4 @@
+import 'package:application8/pages/navigation_page.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/add_tickets.dart';
@@ -28,7 +29,9 @@ class _AddEventPageState extends State<AddEventPage> {
   final TextEditingController _descText = TextEditingController();
   String? eventLink;
 
-  String buttonText = "Publish as a free event";
+  String buttonText = "Add Event";
+  List<bool> isSelected = [false, true]; // Free by default
+  bool isPaidEvent = false;
 
   int get combinedDateTime => DateTime(
         eventDate.year,
@@ -68,7 +71,44 @@ class _AddEventPageState extends State<AddEventPage> {
                 child: OverflowBar(
                   overflowSpacing: 15,
                   children: [
-                    const SizedBox(),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: ToggleButtons(
+                          borderRadius: BorderRadius.circular(24),
+                          borderWidth: 2,
+                          borderColor:
+                              Theme.of(context).colorScheme.outlineVariant,
+                          isSelected: isSelected,
+                          onPressed: (int index) {
+                            setState(() {
+                              for (int buttonIndex = 0;
+                                  buttonIndex < isSelected.length;
+                                  buttonIndex++) {
+                                if (buttonIndex == index) {
+                                  isSelected[buttonIndex] = true;
+                                } else {
+                                  isSelected[buttonIndex] = false;
+                                }
+                              }
+
+                              isPaidEvent = isSelected[1];
+                              if (isPaidEvent) {}
+                            });
+                          },
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 50),
+                              child: Text('Free'),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 50),
+                              child: Text('Paid'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     InputTextField(
                       labelText: "Event Title",
                       hint: "Give a title to the event",
@@ -108,10 +148,10 @@ class _AddEventPageState extends State<AddEventPage> {
                       maxLength: 250,
                     ),
                     InputTextField(
+                      isEnabled: !isPaidEvent,
                       isOptional: true,
-                      labelText: "External Link",
-                      hint: "Paste if you have any external Links.",
-                      helperText: "*Optional",
+                      labelText: "Registration Link",
+                      hint: "Paste Registration Link.",
                       suffixIcon: Icons.link,
                       onChanged: (value) {
                         eventLink = value;
@@ -133,39 +173,23 @@ class _AddEventPageState extends State<AddEventPage> {
                                   true,
                                   eventLink,
                                 );
+                                if (isPaidEvent) {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => const AddTicket(),
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NavigationPage(),
+                                    ),
+                                  );
+                                }
                               }
                             },
                             buttonText: buttonText),
-                        Center(
-                          child: Text(
-                            "or",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
-                          ),
-                        ),
-                        CustomFilledButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AddTicket(
-                                    // event: widget.events,
-                                    ),
-                              ),
-                            );
-                          },
-                          buttonText: "Add Tickets",
-                          buttonColor:
-                              Theme.of(context).colorScheme.secondaryContainer,
-                          buttonTextColor: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                        ),
                         const SizedBox(
                           height: 50,
                         )
