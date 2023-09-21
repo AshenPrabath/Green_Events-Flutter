@@ -163,7 +163,7 @@ class _AddEventPageState extends State<AddEventPage> {
                         CustomFilledButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                await EventService.addEvent(
+                          final eventId= await EventService.addEvent(
                                   UserService.getUserId(),
                                   eventTitle,
                                   eventUrl,
@@ -176,7 +176,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                 if (isPaidEvent) {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
-                                      builder: (context) => const AddTicket(),
+                                      builder: (context) =>  AddTicket(eventId: eventId,),
                                     ),
                                   );
                                 } else {

@@ -7,8 +7,9 @@ import '../widgets/ticket_card.dart';
 
 class AddTicket extends StatefulWidget {
   // final Event event;
+  final String eventId;
   const AddTicket({
-    Key? key,
+    Key? key, required this.eventId,
     // required this.event,
   }) : super(key: key);
 
@@ -63,7 +64,7 @@ class _AddTicketState extends State<AddTicket> {
             context: context,
             builder: (context) {
               return AddTicketDialog(
-                onTicketAdded: _addTicket,
+                onTicketAdded: _addTicket, eventId: widget.eventId,
               );
             },
           );

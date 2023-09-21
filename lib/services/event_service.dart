@@ -17,7 +17,7 @@ class EventService {
     }
   }
 
-  static Future<void> addEvent(
+  static Future<String> addEvent(
     String userId,
     String title,
     String image,
@@ -40,6 +40,7 @@ class EventService {
         'isFree': isFree,
         'link': link,
       });
+      return doc.id;
     } catch (e) {
       throw e.toString();
     }

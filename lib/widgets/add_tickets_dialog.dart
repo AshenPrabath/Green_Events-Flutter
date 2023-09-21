@@ -6,8 +6,9 @@ import '../widgets/input_textfield.dart';
 
 class AddTicketDialog extends StatefulWidget {
   final Function(Ticket) onTicketAdded;
+  final String eventId;
 
-  const AddTicketDialog({required this.onTicketAdded});
+  const AddTicketDialog({required this.onTicketAdded, required this.eventId});
 
   @override
   State<AddTicketDialog> createState() => _AddTicketDialogState();
@@ -68,7 +69,7 @@ class _AddTicketDialogState extends State<AddTicketDialog> {
         TextButton(
           onPressed: () {
             TicketService.addTicket(
-              eventId,
+              widget.eventId,
               ticketType,
               ticketPrice,
               ticketCount,
