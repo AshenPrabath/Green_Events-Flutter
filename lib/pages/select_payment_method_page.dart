@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_material_components_v1/Pages/enter_card_details.dart';
-import 'package:flutter_material_components_v1/widgets/custom_filled_button.dart';
-import 'package:flutter_material_components_v1/widgets/custom_paymentmethod_button.dart';
+import '../pages/enter_card_details.dart';
+import '../widgets/custom_filled_button.dart';
+import '../widgets/custom_paymentmethod_button.dart';
 
 class SelectPayment extends StatefulWidget {
   const SelectPayment({super.key});
