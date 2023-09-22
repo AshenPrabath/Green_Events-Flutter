@@ -41,6 +41,8 @@ dependencies:
   firebase_auth: ^4.9.0
   firebase_core: ^2.15.1
   cloud_firestore: ^4.9.1
+  firebase_storage: ^11.2.7
+  image_picker: ^1.0.4
   # firebase: ^9.0.3
   # auth: ^8.2.0+02
 
@@ -78,6 +80,8 @@ flutter:
      - lib/assets/Barcode-PNG-Photo 1.png
      - lib/assets/3d_avatar_18.png
      - lib/assets/Group 1.png
+     - lib/assets/visa.png
+     - lib/assets/mastercard.png
 
 
   #  - images/a_dot_ham.jpeg

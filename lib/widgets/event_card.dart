@@ -111,10 +111,11 @@ return min;
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
-              child: Image.asset(
-                'lib/assets/media.png',
+              child: Image.network(
+                widget.event.imageUrl,
                 height: 152,
                 width: 356,
+                fit: BoxFit.cover
               ),
             ),
             Padding(

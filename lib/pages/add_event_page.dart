@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:application8/pages/navigation_page.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../pages/add_tickets.dart';
 import '../Services/event_service.dart';
@@ -27,11 +30,23 @@ class _AddEventPageState extends State<AddEventPage> {
   late DateTime eventDate;
   String eventVenue = '';
   final TextEditingController _descText = TextEditingController();
-  String? eventLink;
+  String eventLink = '';
+  XFile? _image;
 
   String buttonText = "Add Event";
   List<bool> isSelected = [false, true]; // Free by default
   bool isPaidEvent = false;
+
+  Future<void> _getImageFromGallery() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _image = pickedImage;
+      });
+    }
+  }
 
   int get combinedDateTime => DateTime(
         eventDate.year,
@@ -64,7 +79,12 @@ class _AddEventPageState extends State<AddEventPage> {
         key: _formKey,
         child: ListView(
           children: [
-            Image.asset('lib/assets/Group 9.png'),
+            InkWell(
+              onTap: _getImageFromGallery,
+              child: _image == null
+                  ? Image.asset('lib/assets/Group 9.png',width: 412, height: 150,)
+                  : Image.file(File(_image!.path),width: 412, height: 149,fit: BoxFit.cover,),
+            ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -166,12 +186,12 @@ class _AddEventPageState extends State<AddEventPage> {
                                 final eventId = await EventService.addEvent(
                                   UserService.getUserId(),
                                   eventTitle,
-                                  eventUrl,
                                   combinedDateTime,
                                   eventVenue,
-                                  _descText.text.toString(),
+                                  _descText.text,
                                   true,
                                   eventLink,
+                                  _image!.path.toString(),
                                 );
                                 if (isPaidEvent) {
                                   Navigator.of(context).pushReplacement(

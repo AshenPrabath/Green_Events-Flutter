@@ -111,8 +111,9 @@ class _TicketMiniCardState extends State<TicketMiniCard> {
                   borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(borderRadius),
                       bottomRight: Radius.circular(borderRadius)),
-                  child: Image.asset(
-                    "lib/assets/media (2).png",
+                  child: Image.network(
+                    event!.imageUrl,
+                    fit: BoxFit.cover,
                     height: 80,
                     width: 80,
                   )),

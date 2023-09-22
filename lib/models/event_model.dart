@@ -6,119 +6,112 @@ class Event {
   final String id;
   final String userId;
   final String title;
-  final String image;
+  final String imageUrl;
   final int time;
   final String venue;
   final String desc;
   final bool isFree;
   final String? link;
-  final int createdAt;
   Event({
     required this.id,
     required this.userId,
     required this.title,
-    required this.image,
+    required this.imageUrl,
     required this.time,
     required this.venue,
     required this.desc,
     required this.isFree,
     this.link,
-    required this.createdAt,
   });
+  
 
   Event copyWith({
     String? id,
     String? userId,
     String? title,
-    String? image,
+    String? imageUrl,
     int? time,
     String? venue,
     String? desc,
     bool? isFree,
     String? link,
-    int? createdAt,
   }) {
     return Event(
       id: id ?? this.id,
       userId: userId ?? this.userId,
       title: title ?? this.title,
-      image: image ?? this.image,
+      imageUrl: imageUrl ?? this.imageUrl,
       time: time ?? this.time,
       venue: venue ?? this.venue,
       desc: desc ?? this.desc,
       isFree: isFree ?? this.isFree,
       link: link ?? this.link,
-      createdAt: createdAt ?? this.createdAt,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'id': id,
       'userId': userId,
       'title': title,
-      'image': image,
+      'imageUrl': imageUrl,
       'time': time,
       'venue': venue,
       'desc': desc,
       'isFree': isFree,
       'link': link,
-      'createdAt': createdAt,
     };
   }
 
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
-      id: map['id'] ?? '',
-      userId: map['userId'] ?? '',
-      title: map['title'] ?? '',
-      image: map['image'] ?? '',
-      time: map['time']?.toInt() ?? 0,
-      venue: map['venue'] ?? '',
-      desc: map['desc'] ?? '',
-      isFree: map['isFree'] ?? false,
-      link: map['link'],
-      createdAt: map['createdAt']?.toInt() ?? 0,
+      id: map['id'] as String,
+      userId: map['userId'] as String,
+      title: map['title'] as String,
+      imageUrl: map['imageUrl'] as String,
+      time: map['time'] as int,
+      venue: map['venue'] as String,
+      desc: map['desc'] as String,
+      isFree: map['isFree'] as bool,
+      link: map['link'] != null ? map['link'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Event.fromJson(String source) => Event.fromMap(json.decode(source));
+  factory Event.fromJson(String source) => Event.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Event(id: $id, userId: $userId, title: $title, image: $image, time: $time, venue: $venue, desc: $desc, isFree: $isFree, link: $link, createdAt: $createdAt)';
+    return 'Event(id: $id, userId: $userId, title: $title, imageUrl: $imageUrl, time: $time, venue: $venue, desc: $desc, isFree: $isFree, link: $link)';
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant Event other) {
     if (identical(this, other)) return true;
-
-    return other is Event &&
-        other.id == id &&
-        other.userId == userId &&
-        other.title == title &&
-        other.image == image &&
-        other.time == time &&
-        other.venue == venue &&
-        other.desc == desc &&
-        other.isFree == isFree &&
-        other.link == link &&
-        other.createdAt == createdAt;
+  
+    return 
+      other.id == id &&
+      other.userId == userId &&
+      other.title == title &&
+      other.imageUrl == imageUrl &&
+      other.time == time &&
+      other.venue == venue &&
+      other.desc == desc &&
+      other.isFree == isFree &&
+      other.link == link;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        userId.hashCode ^
-        title.hashCode ^
-        image.hashCode ^
-        time.hashCode ^
-        venue.hashCode ^
-        desc.hashCode ^
-        isFree.hashCode ^
-        link.hashCode ^
-        createdAt.hashCode;
+      userId.hashCode ^
+      title.hashCode ^
+      imageUrl.hashCode ^
+      time.hashCode ^
+      venue.hashCode ^
+      desc.hashCode ^
+      isFree.hashCode ^
+      link.hashCode;
   }
 }

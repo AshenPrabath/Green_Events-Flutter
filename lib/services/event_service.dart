@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import '../models/event_model.dart';
 import '../services/user_service.dart';
 import '../sources/fake_events.dart';
@@ -21,25 +23,33 @@ class EventService {
   static Future<String> addEvent(
     String userId,
     String title,
-    String image,
     int timeStamp,
     String venue,
     String desc,
     bool isFree,
-    String? link,
+    String link,
+    String imageUrl,
   ) async {
     try {
       final doc = FirebaseFirestore.instance.collection('event').doc();
-      await doc.set({
-        'id': doc.id,
-        'userId': userId,
-        'title': title,
-        'image': image,
-        'time': timeStamp,
-        'venue': venue,
-        'desc': desc,
-        'isFree': isFree,
-        'link': link,
+      final storageRef = FirebaseStorage.instance.ref().child('event/$doc.id');
+      final uploadTask = storageRef.putFile(File(imageUrl));
+      await uploadTask.whenComplete(() async {
+        final imageUrl = await storageRef.getDownloadURL();
+        // Store the image URL in the Firestore document
+        await doc.set({
+          'id': doc.id,
+          'userId': userId,
+          'title': title,
+          'image': doc.id, // Use the document ID as the image identifier
+          'time': timeStamp,
+          'venue': venue,
+          'desc': desc,
+          'isFree': isFree,
+          'link': link,
+          'imageUrl': imageUrl, // Store the image URL
+          // Use server timestamp for createdAt
+        });
       });
       return doc.id;
     } catch (e) {

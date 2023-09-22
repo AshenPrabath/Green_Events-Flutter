@@ -52,8 +52,9 @@ class _TicketMediumState extends State<TicketMedium> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    "lib/assets/media (2).png",
+                  child: Image.network(
+                    widget.event.imageUrl,
+                    fit: BoxFit.cover,
                     height: 102,
                     width: 102,
                   ),
