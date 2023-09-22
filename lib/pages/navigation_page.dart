@@ -5,7 +5,6 @@ import '../pages/bookings_page.dart';
 import '../pages/events_page.dart';
 import '../pages/profile_page.dart';
 import '../pages/search_page.dart';
-import '../sources/event_data.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({
