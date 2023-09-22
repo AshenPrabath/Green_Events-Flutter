@@ -1,47 +1,40 @@
 import 'dart:convert';
 
 class Booking {
-  final String userId;
+  final String userID;
   final String ticketID;
   final int quantity;
-  final int createdAt;
   Booking({
-    required this.userId,
+    required this.userID,
     required this.ticketID,
     required this.quantity,
-    required this.createdAt,
   });
 
-
   Booking copyWith({
-    String? userId,
+    String? userID,
     String? ticketID,
     int? quantity,
-    int? createdAt,
   }) {
     return Booking(
-      userId: userId ?? this.userId,
+      userID: userID ?? this.userID,
       ticketID: ticketID ?? this.ticketID,
       quantity: quantity ?? this.quantity,
-      createdAt: createdAt ?? this.createdAt,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'userId': userId,
+      'userID': userID,
       'ticketID': ticketID,
       'quantity': quantity,
-      'createdAt': createdAt,
     };
   }
 
   factory Booking.fromMap(Map<String, dynamic> map) {
     return Booking(
-      userId: map['userId'] as String,
+      userID: map['userID'] as String,
       ticketID: map['ticketID'] as String,
       quantity: map['quantity'] as int,
-      createdAt: map['createdAt'] as int,
     );
   }
 
@@ -50,26 +43,18 @@ class Booking {
   factory Booking.fromJson(String source) => Booking.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() {
-    return 'Booking(userId: $userId, ticketID: $ticketID, quantity: $quantity, createdAt: $createdAt)';
-  }
+  String toString() => 'Booking(userID: $userID, ticketID: $ticketID, quantity: $quantity)';
 
   @override
   bool operator ==(covariant Booking other) {
     if (identical(this, other)) return true;
   
     return 
-      other.userId == userId &&
+      other.userID == userID &&
       other.ticketID == ticketID &&
-      other.quantity == quantity &&
-      other.createdAt == createdAt;
+      other.quantity == quantity;
   }
 
   @override
-  int get hashCode {
-    return userId.hashCode ^
-      ticketID.hashCode ^
-      quantity.hashCode ^
-      createdAt.hashCode;
-  }
+  int get hashCode => userID.hashCode ^ ticketID.hashCode ^ quantity.hashCode;
 }

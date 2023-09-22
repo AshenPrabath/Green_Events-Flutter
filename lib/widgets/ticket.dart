@@ -1,16 +1,42 @@
+import 'package:application8/models/booking_model.dart';
+import 'package:application8/models/ticket_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/event_model.dart';
 
 import '../widgets/custom_filled_button.dart';
 import '../widgets/total_price_container.dart';
 
-class TicketWidget extends StatelessWidget {
+class TicketWidget extends StatefulWidget {
   final Event event;
+  final Ticket ticket;
+  final Booking booking;
   const TicketWidget({
     Key? key,
-    required this.event,
+    required this.event, required this.booking, required this.ticket,
   }) : super(key: key);
 
+  @override
+  State<TicketWidget> createState() => _TicketWidgetState();
+}
+
+class _TicketWidgetState extends State<TicketWidget> {
+  DateTime get dateTime =>
+      DateTime.fromMillisecondsSinceEpoch(widget.event.time);
+  String get formattedDate => formatTimestampDate(widget.event.time);
+  String get formattedTime => formatTimestampTime(widget.event.time);
+
+  String formatTimestampDate(int timestamp) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String formattedDate = DateFormat('d MMMM yyyy').format(dateTime);
+    return ' $formattedDate';
+  }
+
+  String formatTimestampTime(int timestamp) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String formattedTime = DateFormat('hh:mm a').format(dateTime);
+    return formattedTime;
+  }
   @override
   Widget build(BuildContext context) {
     const double borderRadius = 6.0;
@@ -32,7 +58,7 @@ class TicketWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(borderRadius),
                   child: Image.asset(
-                    "event.eventImage",
+                    "lib/assets/media (2).png",
                     height: 102,
                     width: 102,
                   ),
@@ -45,7 +71,7 @@ class TicketWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 11),
                         child: Text(
-                          "event.eventTitle",
+                          widget.event.title,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall
@@ -65,8 +91,9 @@ class TicketWidget extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 6),
-                          child: Text(
-                            "event.ticketType",
+                          child: 
+                          Text(
+                            widget.ticket.ticketName,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -109,7 +136,7 @@ class TicketWidget extends StatelessWidget {
                       Padding(
                           padding: EdgeInsets.only(bottom: 21),
                           child: Text(
-                            "event.eventDate.toLocal().toString().split(' ')[0]",
+                            formattedDate,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -141,7 +168,7 @@ class TicketWidget extends StatelessWidget {
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       Text(
-                        "${"event.ticketPrice"} LKR",
+                        "${widget.ticket.ticketPrice.toInt()} LKR",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
@@ -158,7 +185,7 @@ class TicketWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 21),
                         child: Text(
-                          "event.eventTime.format(context)",
+                          formattedTime,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
@@ -175,7 +202,7 @@ class TicketWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 21),
                         child: Text(
-                          "event.eventVenue",
+                          widget.event.venue,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
@@ -190,7 +217,7 @@ class TicketWidget extends StatelessWidget {
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       Text(
-                        "event.ticketCount".toString(),
+                        widget.booking.quantity.toString(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
@@ -199,9 +226,9 @@ class TicketWidget extends StatelessWidget {
                 ],
               ),
             ),
-            const Padding(
+             Padding(
               padding: EdgeInsets.only(top: 30),
-              child: TotalPriceContainer(totalPrice: 10,),
+              child: TotalPriceContainer(totalPrice: widget.ticket.ticketPrice*widget.booking.quantity,),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),

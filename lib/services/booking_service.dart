@@ -65,11 +65,12 @@ class BookingService {
 
       final userSnapshot = await FirebaseFirestore.instance
           .collection('booking')
-          .where("userId", isEqualTo: userId)
+          .where("userID", isEqualTo: userId)
           .get();
 
       return userSnapshot.docs.map((e) => Booking.fromMap(e.data())).toList();
     } catch (e) {
+      print(e);
       throw AuthFailure(message: e.toString());
     }
   }

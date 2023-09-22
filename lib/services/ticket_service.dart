@@ -78,6 +78,7 @@ class TicketService {
         throw AuthFailure(message: 'User not found');
       }
     } catch (e) {
+      print(e);
       throw AuthFailure(message: e.toString());
     }
   }

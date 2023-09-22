@@ -1,3 +1,4 @@
+import 'package:application8/pages/navigation_page.dart';
 import 'package:application8/services/ticket_service.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,14 @@ class _AddTicketState extends State<AddTicket> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const NavigationPage()),
+                              );
+            },
             child: Text(
               "Publish",
               style: Theme.of(context)

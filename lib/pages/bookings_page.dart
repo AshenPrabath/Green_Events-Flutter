@@ -5,6 +5,8 @@ import '../widgets/ticket_minicard.dart';
 import '../models/event_model.dart';
 
 class BookingsPage extends StatelessWidget {
+  const BookingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +25,14 @@ class BookingsPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: FutureBuilder<List<Booking>>(
           future: BookingService.getBookingsByUser(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+          builder: ( context,  snapshot) {
+
+            if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
+
             if (snapshot.hasData) {
+              
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (BuildContext context, int index) {

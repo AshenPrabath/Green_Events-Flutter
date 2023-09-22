@@ -1,13 +1,17 @@
+import 'package:application8/models/booking_model.dart';
+import 'package:application8/models/event_model.dart';
+import 'package:application8/models/ticket_model.dart';
 import 'package:flutter/material.dart';
-import '../Models/event_model.dart';
 
 import '../widgets/ticket.dart';
 
 class TicketPage extends StatelessWidget {
   final Event event;
+  final Booking booking;
+  final Ticket ticket;
   const TicketPage({
     Key? key,
-    required this.event,
+    required this.event, required this.booking, required this.ticket,
   }) : super(key: key);
 
   @override
@@ -23,10 +27,10 @@ class TicketPage extends StatelessWidget {
               ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
-      // body: Padding(
-      //   padding: const EdgeInsets.all(23.0),
-      //   child: TicketWidget(event: event),
-      // ),
+      body: Padding(
+        padding: const EdgeInsets.all(23.0),
+        child: TicketWidget(event: event, booking: booking, ticket: ticket,),
+      ),
     );
   }
 }

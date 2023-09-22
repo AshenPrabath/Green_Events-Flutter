@@ -74,20 +74,18 @@ class EventService {
 
   static Future<Event> getEventById(String id) async {
     try {
+      print(id);
       final DocumentSnapshot userSnapshot =
           await FirebaseFirestore.instance.collection('event').doc(id).get();
 
-      if (userSnapshot.exists) {
-        final Map<String, dynamic> eventData =
+      final Map<String, dynamic> eventData =
             userSnapshot.data() as Map<String, dynamic>;
 
         final Event event = Event.fromMap(eventData);
 
         return event;
-      } else {
-        throw AuthFailure(message: 'User not found');
-      }
     } catch (e) {
+      print(e);
       throw AuthFailure(message: e.toString());
     }
   }
