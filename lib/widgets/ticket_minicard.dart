@@ -1,13 +1,15 @@
+import 'package:application8/models/booking_model.dart';
+import 'package:application8/models/event_model.dart';
+import 'package:application8/models/ticket_model.dart';
+import 'package:application8/services/event_service.dart';
+import 'package:application8/services/ticket_service.dart';
 import 'package:flutter/material.dart';
-import '../models/event_model.dart';
-
-import '../pages/ticket_page.dart';
 
 class TicketMiniCard extends StatelessWidget {
-  final Event event;
+  final Booking booking;
   const TicketMiniCard({
     Key? key,
-    required this.event,
+    required this.booking,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,24 @@ class TicketMiniCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      FutureBuilder<Ticket>(
+                        future: TicketService.getTicketById(booking.ticketID),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return FutureBuilder<Event>(
+                              future:
+                                  EventService.getEventById(snapshot.data!.id),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(snapshot.data!.title);
+                                }
+                                return const Text("Loading");
+                              },
+                            );
+                          }
+                          return const Text("Loading");
+                        },
+                      ),
                       Text(
                         "event.eventTitle",
                         style: Theme.of(context)

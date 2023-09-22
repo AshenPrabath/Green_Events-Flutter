@@ -59,22 +59,20 @@ class EventService {
       throw e.toString();
     }
   }
+
   static Stream<List<Event>> listenGetAllEvents() async* {
     final eventsCollection = FirebaseFirestore.instance.collection('event');
 
     try {
- yield* eventsCollection.snapshots().map((snapshot) {
-
-       return  snapshot.docs.map((e) => Event.fromMap(e.data())).toList();
+      yield* eventsCollection.snapshots().map((snapshot) {
+        return snapshot.docs.map((e) => Event.fromMap(e.data())).toList();
       });
-  
     } catch (e) {
       throw e.toString();
     }
   }
-  
 
-  static Future<Event> getEventById(id) async {
+  static Future<Event> getEventById(String id) async {
     try {
       final DocumentSnapshot userSnapshot =
           await FirebaseFirestore.instance.collection('event').doc(id).get();

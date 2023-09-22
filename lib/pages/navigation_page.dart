@@ -8,7 +8,9 @@ import '../pages/search_page.dart';
 import '../sources/event_data.dart';
 
 class NavigationPage extends StatefulWidget {
-  const NavigationPage({super.key});
+  const NavigationPage({
+    super.key,
+  });
 
   @override
   State<NavigationPage> createState() => _EventsPageState();
@@ -20,7 +22,7 @@ class _EventsPageState extends State<NavigationPage> {
     const EventsPage(),
     const SearchPage(),
     const SizedBox.shrink(),
-    BookingsPage(events: dummyEvents),
+    BookingsPage(),
     const ProfilePage(),
   ];
 

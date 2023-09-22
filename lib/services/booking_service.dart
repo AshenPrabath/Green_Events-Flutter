@@ -3,8 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'user_service.dart';
 
-class BookingService{
-
+class BookingService {
   static Future<void> addBooking(
     String ticketID,
     int quantity,
@@ -14,7 +13,7 @@ class BookingService{
       final doc = FirebaseFirestore.instance.collection('booking').doc();
       await doc.set({
         'id': doc.id,
-        'userID': userId ,
+        'userID': userId,
         'ticketID': ticketID,
         'quantity': quantity,
       });
@@ -22,6 +21,7 @@ class BookingService{
       throw e.toString();
     }
   }
+
   static Future<Booking> getBooking() async {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -31,33 +31,49 @@ class BookingService{
       throw e.toString();
     }
   }
+
   static Stream<List<Booking>> getAllTickets() async* {
     final bookingCollection = FirebaseFirestore.instance.collection('ticket');
 
     try {
- yield* bookingCollection.snapshots().map((snapshot) {
-
-       return  snapshot.docs.map((e) => Booking.fromMap(e.data())).toList();
+      yield* bookingCollection.snapshots().map((snapshot) {
+        return snapshot.docs.map((e) => Booking.fromMap(e.data())).toList();
       });
-  
     } catch (e) {
       throw e.toString();
     }
   }
 
-  static Stream<List<Booking>> getBookingsByUserID({required String userID}) async* {
-    final bookingsCollection = FirebaseFirestore.instance.collection('booking').where("userID",isEqualTo: userID);
+  static Stream<List<Booking>> listenBookingsByUser() async* {
+    final userId = UserService.getUserId();
+    final bookingsCollection = FirebaseFirestore.instance
+        .collection('booking')
+        .where("userID", isEqualTo: userId);
 
     try {
- yield* bookingsCollection.snapshots().map((snapshot) {
-
-       return  snapshot.docs.map((e) => Booking.fromMap(e.data())).toList();
+      yield* bookingsCollection.snapshots().map((snapshot) {
+        return snapshot.docs.map((e) => Booking.fromMap(e.data())).toList();
       });
-  
     } catch (e) {
       throw e.toString();
     }
   }
+
+  static Future<List<Booking>> getBookingsByUser() async {
+    try {
+      final userId = UserService.getUserId();
+
+      final userSnapshot = await FirebaseFirestore.instance
+          .collection('booking')
+          .where("userId", isEqualTo: userId)
+          .get();
+
+      return userSnapshot.docs.map((e) => Booking.fromMap(e.data())).toList();
+    } catch (e) {
+      throw AuthFailure(message: e.toString());
+    }
+  }
+
   static Future<Booking> getBookingByID(id) async {
     try {
       final DocumentSnapshot userSnapshot =
@@ -77,18 +93,16 @@ class BookingService{
       throw AuthFailure(message: e.toString());
     }
   }
-  static Future<List<Booking>> getAllbookingByUserID(String id) async {
-    final bookkingsCollection = FirebaseFirestore.instance.collection('ticket');
+  // static Future<List<Booking>> getAllbookingByUserID(String id) async {
+  //   final bookingsCollection = FirebaseFirestore.instance.collection('booking');
 
-    try {
-      final querySnapshot = await bookkingsCollection.where("UserID", isEqualTo: id).get();
-      final List<Booking> bookings =
-          querySnapshot.docs.map((doc) => Booking.fromMap(doc.data())).toList();
-      return bookings;
-    } catch (e) {
-      throw e.toString();
-    }
-  }
-
-
+  //   try {
+  //     final querySnapshot = await bookingsCollection.where("UserID", isEqualTo: id).get();
+  //     final List<Booking> bookings =
+  //         querySnapshot.docs.map((doc) => Booking.fromMap(doc.data())).toList();
+  //     return bookings;
+  //   } catch (e) {
+  //     throw e.toString();
+  //   }
+  // }
 }
