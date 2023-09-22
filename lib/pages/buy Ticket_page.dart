@@ -189,7 +189,7 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  SelectPaymentMethod()),
+                                  builder: (context) =>  SelectPaymentMethod(event: widget.event, ticket: selectedTicket!, quantity: ticketCount)),
                             );
                         }, buttonText: "Buy Ticket(s)"),
                   )

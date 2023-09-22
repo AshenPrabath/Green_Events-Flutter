@@ -1,12 +1,22 @@
-import 'package:application8/models/event_model.dart';
 import 'package:flutter/material.dart';
+
+import 'package:application8/models/event_model.dart';
+
 import '../models/ticket_model.dart';
 import '../pages/enter_card_details.dart';
 import '../widgets/custom_filled_button.dart';
 import '../widgets/custom_paymentmethod_button.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
-  const SelectPaymentMethod({super.key});
+  final Event event;
+  final Ticket ticket;
+  final int quantity;
+  const SelectPaymentMethod({
+    Key? key,
+    required this.event,
+    required this.ticket,
+    required this.quantity,
+  }) : super(key: key);
 
   @override
   State<SelectPaymentMethod> createState() => _SelectPaymentMethodState();
@@ -79,7 +89,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                       EnterCardDetails()),
+                                       EnterCardDetails(event: widget.event, ticket: widget.ticket, quantity:widget.quantity)),
                             );
                           },
                           buttonText: "Confirm"),
