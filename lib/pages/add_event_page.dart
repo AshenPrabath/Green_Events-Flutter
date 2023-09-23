@@ -82,8 +82,17 @@ class _AddEventPageState extends State<AddEventPage> {
             InkWell(
               onTap: _getImageFromGallery,
               child: _image == null
-                  ? Image.asset('lib/assets/Group 9.png',width: 412, height: 150,)
-                  : Image.file(File(_image!.path),width: 412, height: 149,fit: BoxFit.cover,),
+                  ? Image.asset(
+                      'lib/assets/Group 9.png',
+                      width: 412,
+                      height: 150,
+                    )
+                  : Image.file(
+                      File(_image!.path),
+                      width: 412,
+                      height: 149,
+                      fit: BoxFit.cover,
+                    ),
             ),
             Center(
               child: Padding(
@@ -164,6 +173,8 @@ class _AddEventPageState extends State<AddEventPage> {
                       },
                     ),
                     InputLargeTextField(
+                      hint: "Give a short description about the event",
+                      label: "Description",
                       controller: _descText,
                       maxLength: 250,
                     ),
