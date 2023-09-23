@@ -1,5 +1,7 @@
 import 'package:application8/models/booking_model.dart';
 import 'package:application8/models/ticket_model.dart';
+import 'package:application8/models/user_model.dart';
+import 'package:application8/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/event_model.dart';
@@ -13,7 +15,9 @@ class TicketWidget extends StatefulWidget {
   final Booking booking;
   const TicketWidget({
     Key? key,
-    required this.event, required this.booking, required this.ticket,
+    required this.event,
+    required this.booking,
+    required this.ticket,
   }) : super(key: key);
 
   @override
@@ -37,6 +41,7 @@ class _TicketWidgetState extends State<TicketWidget> {
     String formattedTime = DateFormat('hh:mm a').format(dateTime);
     return formattedTime;
   }
+
   @override
   Widget build(BuildContext context) {
     const double borderRadius = 6.0;
@@ -57,8 +62,9 @@ class _TicketWidgetState extends State<TicketWidget> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(borderRadius),
-                  child: Image.asset(
-                    "lib/assets/media (2).png",
+                  child: Image.network(
+                    widget.event.imageUrl,
+                    fit: BoxFit.cover,
                     height: 102,
                     width: 102,
                   ),
@@ -91,8 +97,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 6),
-                          child: 
-                          Text(
+                          child: Text(
                             widget.ticket.ticketName,
                             style: Theme.of(context)
                                 .textTheme
@@ -152,14 +157,16 @@ class _TicketWidgetState extends State<TicketWidget> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 21),
-                        child: Text(
-                          "event.ownerName",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                        child: FutureBuilder(
+                          future: UserService.getCurrentUser(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Text(snapshot.data!.name);
+                            }
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
                         ),
                       ),
                       Text(
@@ -226,9 +233,11 @@ class _TicketWidgetState extends State<TicketWidget> {
                 ],
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(top: 30),
-              child: TotalPriceContainer(totalPrice: widget.ticket.ticketPrice*widget.booking.quantity,),
+              child: TotalPriceContainer(
+                totalPrice: widget.ticket.ticketPrice * widget.booking.quantity,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),

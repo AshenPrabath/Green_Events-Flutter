@@ -1,10 +1,21 @@
+import 'package:application8/widgets/input_large_textfield.dart';
 import 'package:flutter/material.dart';
 import '../widgets/custom_filled_button.dart';
 import '../widgets/input_textfield.dart';
 
-class AddOrganizationPage extends StatelessWidget {
+class AddOrganizationPage extends StatefulWidget {
   const AddOrganizationPage({super.key});
 
+  @override
+  State<AddOrganizationPage> createState() => _AddOrganizationPageState();
+}
+
+class _AddOrganizationPageState extends State<AddOrganizationPage> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _deskText =TextEditingController();
+  final orgName='';
+  final orgEmail='';
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +66,9 @@ class AddOrganizationPage extends StatelessWidget {
                   textInputType: TextInputType.emailAddress,
                   onChanged: (onChanged) {},
                 ),
+                InputLargeTextField(
+                  controller: _deskText,
+                  maxLength: 200)
               ],
             ),
             Padding(
