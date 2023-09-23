@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class InputLargeTextField extends StatefulWidget {
   final TextEditingController? controller;
   final int maxLength;
+  final String hint;
+  final String label;
   const InputLargeTextField({
     Key? key,
     this.controller,
-    required this.maxLength,
+    required this.maxLength, 
+    required this.hint, 
+    required this.label,
   }) : super(key: key);
 
   @override
@@ -33,8 +37,8 @@ class _InputLargeTextFieldState extends State<InputLargeTextField> {
         ),
         border: const OutlineInputBorder(),
         counterText: '',
-        hintText: 'Give a short description about the event',
-        labelText: "Description",
+        hintText: widget.hint,
+        labelText: widget.label,
       ),
     );
   }
