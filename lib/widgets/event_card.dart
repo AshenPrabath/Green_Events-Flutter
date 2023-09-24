@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:application8/models/organization_model.dart';
 import 'package:application8/models/ticket_model.dart';
 import 'package:application8/models/user_model.dart';
 import 'package:application8/pages/buy%20Ticket_page.dart';
 import 'package:application8/services/event_service.dart';
+import 'package:application8/services/organization_service.dart';
 import 'package:application8/services/ticket_service.dart';
 import 'package:application8/services/user_service.dart';
 import 'package:application8/widgets/free_event_row.dart';
@@ -24,6 +26,7 @@ class EventCard extends StatefulWidget {
 }
 
 class _EventCardState extends State<EventCard> {
+  Organization? organization;
   DateTime get dateTime =>
       DateTime.fromMillisecondsSinceEpoch(widget.event.time);
   String get formattedDate => formatTimestampDate(widget.event.time);
@@ -42,16 +45,14 @@ class _EventCardState extends State<EventCard> {
   }
 
   Ticket getMinimumTicket(List<Ticket> tickets) {
-Ticket min = tickets[0];
+    Ticket min = tickets[0];
     for (Ticket ticket in tickets) {
       if (ticket.ticketPrice < min.ticketPrice) {
         min = ticket;
       }
     }
-return min;
-
-
-   }
+    return min;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +70,29 @@ return min;
             ListTile(
               trailing: GestureDetector(
                   onTap: () {}, child: const Icon(Icons.star_border)),
-              leading: Image.asset(
-                'lib/assets/background.png',
-                width: 40,
-                height: 40,
-              ),
+              leading: FutureBuilder<Organization>(
+                  future: OrganizationService.getOrganizationByUserId(
+                      widget.event.userId),
+                  builder: (context, orgSnapshot) {
+                    if (orgSnapshot.hasError) {
+                      return Text(orgSnapshot.error.toString());
+                    }
+                    if (orgSnapshot.hasData) {
+                      organization = orgSnapshot.data!;
+                      return ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(25)),
+                          child: Image.network(
+                            orgSnapshot.data!.imageUrl,
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                          ));
+                    }
+                    return const CircularProgressIndicator();
+                  }),
               title: Text(
-                widget.event.title,
+                organization!.orgName,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
@@ -111,12 +128,8 @@ return min;
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
-              child: Image.network(
-                widget.event.imageUrl,
-                height: 152,
-                width: 356,
-                fit: BoxFit.cover
-              ),
+              child: Image.network(widget.event.imageUrl,
+                  height: 152, width: 356, fit: BoxFit.cover),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -167,25 +180,28 @@ return min;
               ),
             ),
             FutureBuilder(
-              future: TicketService.getAllTicketsByEventID(widget.event.id), 
-              builder: (context, snapshot){
-                if (snapshot.hasData) {
-                  if (snapshot.data!.isEmpty) {
-                    return FreeEventRow(onPressed: (){});
-                  }
-                  return PaidEventRow(onPressed: (){
-                    Navigator.push(
+                future: TicketService.getAllTicketsByEventID(widget.event.id),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.isEmpty) {
+                      return FreeEventRow(onPressed: () {});
+                    }
+                    return PaidEventRow(
+                      onPressed: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>  BuyTicketPage(event: widget.event, tickets: snapshot.data!,)),
+                              builder: (context) => BuyTicketPage(
+                                    event: widget.event,
+                                    tickets: snapshot.data!,
+                                  )),
                         );
-                  }, ticket: getMinimumTicket(snapshot.data!),);
-                }
-                return const Text("Loading");
-              }
-              
-              )
-            
+                      },
+                      ticket: getMinimumTicket(snapshot.data!),
+                    );
+                  }
+                  return const Text("Loading");
+                })
           ],
         ),
       ),

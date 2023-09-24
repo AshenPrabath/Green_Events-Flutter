@@ -1,58 +1,53 @@
 import 'dart:convert';
 
 class Organization {
-  final String orgID;
+  final String orgId;
   final String orgName;
   final String orgDesc;
   final String imageUrl;
-  final String userID;
-  final bool isPending;
+  final String userId;
+
   Organization({
-    required this.orgID,
+    required this.orgId,
     required this.orgName,
     required this.orgDesc,
     required this.imageUrl,
-    required this.userID,
-    required this.isPending,
+    required this.userId,
   });
 
   Organization copyWith({
-    String? orgID,
+    String? orgId,
     String? orgName,
     String? orgDesc,
     String? imageUrl,
-    String? userID,
-    bool? isPending,
+    String? userId,
   }) {
     return Organization(
-      orgID: orgID ?? this.orgID,
+      orgId: orgId ?? this.orgId,
       orgName: orgName ?? this.orgName,
       orgDesc: orgDesc ?? this.orgDesc,
       imageUrl: imageUrl ?? this.imageUrl,
-      userID: userID ?? this.userID,
-      isPending: isPending ?? this.isPending,
+      userId: userId ?? this.userId,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'orgID': orgID,
+      'orgId': orgId,
       'orgName': orgName,
       'orgDesc': orgDesc,
       'imageUrl': imageUrl,
-      'userID': userID,
-      'isPending': isPending,
+      'userId': userId,
     };
   }
 
   factory Organization.fromMap(Map<String, dynamic> map) {
     return Organization(
-      orgID: map['orgID'] as String,
+      orgId: map['orgId'] as String,
       orgName: map['orgName'] as String,
       orgDesc: map['orgDesc'] as String,
       imageUrl: map['imageUrl'] as String,
-      userID: map['userID'] as String,
-      isPending: map['isPending'] as bool,
+      userId: map['userId'] as String,
     );
   }
 
@@ -63,28 +58,27 @@ class Organization {
 
   @override
   String toString() {
-    return 'Organization(orgID: $orgID, orgName: $orgName, orgDesc: $orgDesc, imageUrl: $imageUrl, userID: $userID, isPending: $isPending)';
+    return 'Organization(orgId: $orgId, orgName: $orgName, orgDesc: $orgDesc, imageUrl: $imageUrl, userId: $userId)';
   }
 
   @override
   bool operator ==(covariant Organization other) {
     if (identical(this, other)) return true;
-
-    return other.orgID == orgID &&
-        other.orgName == orgName &&
-        other.orgDesc == orgDesc &&
-        other.imageUrl == imageUrl &&
-        other.userID == userID &&
-        other.isPending == isPending;
+  
+    return 
+      other.orgId == orgId &&
+      other.orgName == orgName &&
+      other.orgDesc == orgDesc &&
+      other.imageUrl == imageUrl &&
+      other.userId == userId;
   }
 
   @override
   int get hashCode {
-    return orgID.hashCode ^
-        orgName.hashCode ^
-        orgDesc.hashCode ^
-        imageUrl.hashCode ^
-        userID.hashCode ^
-        isPending.hashCode;
+    return orgId.hashCode ^
+      orgName.hashCode ^
+      orgDesc.hashCode ^
+      imageUrl.hashCode ^
+      userId.hashCode;
   }
 }

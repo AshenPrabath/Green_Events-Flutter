@@ -1,9 +1,9 @@
-import 'package:application8/models/booking_model.dart';
-import 'package:application8/models/event_model.dart';
-import 'package:application8/models/ticket_model.dart';
-import 'package:application8/pages/ticket_page.dart';
-import 'package:application8/services/event_service.dart';
-import 'package:application8/services/ticket_service.dart';
+import '../models/booking_model.dart';
+import '../models/event_model.dart';
+import '../models/ticket_model.dart';
+import '../pages/ticket_page.dart';
+import '../services/event_service.dart';
+import '../services/ticket_service.dart';
 import 'package:flutter/material.dart';
 
 class TicketMiniCard extends StatefulWidget {

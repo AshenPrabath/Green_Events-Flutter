@@ -32,7 +32,7 @@ class EventService {
   ) async {
     try {
       final doc = FirebaseFirestore.instance.collection('event').doc();
-      final storageRef = FirebaseStorage.instance.ref().child('event/$doc.id');
+      final storageRef = FirebaseStorage.instance.ref().child('event_media/$doc.id');
       final uploadTask = storageRef.putFile(File(imageUrl));
       await uploadTask.whenComplete(() async {
         final imageUrl = await storageRef.getDownloadURL();
