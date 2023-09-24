@@ -26,7 +26,7 @@ class EventCard extends StatefulWidget {
 }
 
 class _EventCardState extends State<EventCard> {
-  Organization? organization;
+   Organization? organization;
   DateTime get dateTime =>
       DateTime.fromMillisecondsSinceEpoch(widget.event.time);
   String get formattedDate => formatTimestampDate(widget.event.time);
@@ -45,14 +45,16 @@ class _EventCardState extends State<EventCard> {
   }
 
   Ticket getMinimumTicket(List<Ticket> tickets) {
-    Ticket min = tickets[0];
+Ticket min = tickets[0];
     for (Ticket ticket in tickets) {
       if (ticket.ticketPrice < min.ticketPrice) {
         min = ticket;
       }
     }
-    return min;
-  }
+return min;
+
+
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -71,32 +73,42 @@ class _EventCardState extends State<EventCard> {
               trailing: GestureDetector(
                   onTap: () {}, child: const Icon(Icons.star_border)),
               leading: FutureBuilder<Organization>(
-                  future: OrganizationService.getOrganizationByUserId(
-                      widget.event.userId),
-                  builder: (context, orgSnapshot) {
-                    if (orgSnapshot.hasError) {
-                      return Text(orgSnapshot.error.toString());
-                    }
-                    if (orgSnapshot.hasData) {
-                      organization = orgSnapshot.data!;
-                      return ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(25)),
-                          child: Image.network(
-                            orgSnapshot.data!.imageUrl,
-                            height: 50,
-                            width: 50,
-                            fit: BoxFit.cover,
-                          ));
-                    }
-                    return const CircularProgressIndicator();
-                  }),
-              title: Text(
-                organization!.orgName,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                future: OrganizationService.getOrganizationByUserId(widget.event.userId),
+                builder: (context, orgSnapshot) {
+                  if (orgSnapshot.hasError) {
+                    return Text(orgSnapshot.error.toString());
+                  }
+                  if (orgSnapshot.hasData) {
+                    organization=orgSnapshot.data!;
+                    return ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(25)),
+                      child: Image.network(
+                        orgSnapshot.data!.imageUrl,
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.cover,
+                      )
+                    );
+                  }
+                  return const CircularProgressIndicator();
+                  
+                }
+              ),
+              title: FutureBuilder<Organization>(
+                future: OrganizationService.getOrganizationByUserId(widget.event.userId),
+                builder: (context, orgSnapshot) {
+                  if (orgSnapshot.hasData) {
+                    
+                  return Text(
+                    orgSnapshot.data!.orgName,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  );
+                  }
+                  return const Text("Loading...");
+                }
               ),
               subtitle: Row(
                 children: [
@@ -128,8 +140,12 @@ class _EventCardState extends State<EventCard> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
-              child: Image.network(widget.event.imageUrl,
-                  height: 152, width: 356, fit: BoxFit.cover),
+              child: Image.network(
+                widget.event.imageUrl,
+                height: 152,
+                width: 356,
+                fit: BoxFit.cover
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -180,28 +196,25 @@ class _EventCardState extends State<EventCard> {
               ),
             ),
             FutureBuilder(
-                future: TicketService.getAllTicketsByEventID(widget.event.id),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!.isEmpty) {
-                      return FreeEventRow(onPressed: () {});
-                    }
-                    return PaidEventRow(
-                      onPressed: () {
-                        Navigator.push(
+              future: TicketService.getAllTicketsByEventID(widget.event.id), 
+              builder: (context, snapshot){
+                if (snapshot.hasData) {
+                  if (snapshot.data!.isEmpty) {
+                    return FreeEventRow(onPressed: (){});
+                  }
+                  return PaidEventRow(onPressed: (){
+                    Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => BuyTicketPage(
-                                    event: widget.event,
-                                    tickets: snapshot.data!,
-                                  )),
+                              builder: (context) =>  BuyTicketPage(event: widget.event, tickets: snapshot.data!,)),
                         );
-                      },
-                      ticket: getMinimumTicket(snapshot.data!),
-                    );
-                  }
-                  return const Text("Loading");
-                })
+                  }, ticket: getMinimumTicket(snapshot.data!),);
+                }
+                return const Text("Loading");
+              }
+              
+              )
+            
           ],
         ),
       ),
