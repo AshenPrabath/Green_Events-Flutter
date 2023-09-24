@@ -127,8 +127,6 @@ class UserService {
         'phone': userPhone,
         'faculty': userFaculty,
       });
-
-      
     } on FirebaseAuthException catch (e) {
       if (e.code == 'EMAIL_ALREADY_IN_USE') {
         throw AuthFailure(message: 'Email already in use');

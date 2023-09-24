@@ -6,6 +6,7 @@ class Organization {
   final String orgDesc;
   final String imageUrl;
   final String userId;
+  final String orgEmail;
 
   Organization({
     required this.orgId,
@@ -13,6 +14,7 @@ class Organization {
     required this.orgDesc,
     required this.imageUrl,
     required this.userId,
+    required this.orgEmail,
   });
 
   Organization copyWith({
@@ -21,6 +23,7 @@ class Organization {
     String? orgDesc,
     String? imageUrl,
     String? userId,
+    String? orgEmail,
   }) {
     return Organization(
       orgId: orgId ?? this.orgId,
@@ -28,57 +31,62 @@ class Organization {
       orgDesc: orgDesc ?? this.orgDesc,
       imageUrl: imageUrl ?? this.imageUrl,
       userId: userId ?? this.userId,
+      orgEmail: orgEmail ?? this.orgEmail,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'orgId': orgId,
       'orgName': orgName,
       'orgDesc': orgDesc,
       'imageUrl': imageUrl,
       'userId': userId,
+      'orgEmail': orgEmail,
     };
   }
 
   factory Organization.fromMap(Map<String, dynamic> map) {
     return Organization(
-      orgId: map['orgId'] as String,
-      orgName: map['orgName'] as String,
-      orgDesc: map['orgDesc'] as String,
-      imageUrl: map['imageUrl'] as String,
-      userId: map['userId'] as String,
+      orgId: map['orgId'] ?? '',
+      orgName: map['orgName'] ?? '',
+      orgDesc: map['orgDesc'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
+      userId: map['userId'] ?? '',
+      orgEmail: map['orgEmail'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory Organization.fromJson(String source) =>
-      Organization.fromMap(json.decode(source) as Map<String, dynamic>);
+      Organization.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Organization(orgId: $orgId, orgName: $orgName, orgDesc: $orgDesc, imageUrl: $imageUrl, userId: $userId)';
+    return 'Organization(orgId: $orgId, orgName: $orgName, orgDesc: $orgDesc, imageUrl: $imageUrl, userId: $userId, orgEmail: $orgEmail)';
   }
 
   @override
-  bool operator ==(covariant Organization other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.orgId == orgId &&
-      other.orgName == orgName &&
-      other.orgDesc == orgDesc &&
-      other.imageUrl == imageUrl &&
-      other.userId == userId;
+
+    return other is Organization &&
+        other.orgId == orgId &&
+        other.orgName == orgName &&
+        other.orgDesc == orgDesc &&
+        other.imageUrl == imageUrl &&
+        other.userId == userId &&
+        other.orgEmail == orgEmail;
   }
 
   @override
   int get hashCode {
     return orgId.hashCode ^
-      orgName.hashCode ^
-      orgDesc.hashCode ^
-      imageUrl.hashCode ^
-      userId.hashCode;
+        orgName.hashCode ^
+        orgDesc.hashCode ^
+        imageUrl.hashCode ^
+        userId.hashCode ^
+        orgEmail.hashCode;
   }
 }

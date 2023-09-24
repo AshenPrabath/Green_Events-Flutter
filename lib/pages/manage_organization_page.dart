@@ -23,17 +23,6 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
               ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: OrganizationData(),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -63,7 +63,7 @@ class OrganizationService {
   static Future<Organization> getOrganizationByUserId(String id) async {
     final snapshot = await FirebaseFirestore.instance
         .collection("organization")
-        .where(id)
+        .where("userId", isEqualTo: id)
         .get();
     final List<Organization> organizations =
         snapshot.docs.map((doc) => Organization.fromMap(doc.data())).toList();

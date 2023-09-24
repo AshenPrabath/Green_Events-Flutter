@@ -95,53 +95,55 @@ class _AddOrganizationPageState extends State<AddOrganizationPage> {
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(23.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              OverflowBar(
-                overflowAlignment: OverflowBarAlignment.center,
-                overflowSpacing: 22,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(94),
-                    child: InkWell(
-                      onTap: _getImageFromGallery,
-                      child: _image == null
-                          ? Image.asset('lib/assets/Group 9.png',
-                              width: 94, height: 94, fit: BoxFit.cover)
-                          : Image.file(
-                              File(_image!.path),
-                              width: 94,
-                              height: 94,
-                              fit: BoxFit.cover,
-                            ),
+          child: ListView(children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                OverflowBar(
+                  overflowAlignment: OverflowBarAlignment.center,
+                  overflowSpacing: 22,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(94),
+                      child: InkWell(
+                        onTap: _getImageFromGallery,
+                        child: _image == null
+                            ? Image.asset('lib/assets/Group 9.png',
+                                width: 94, height: 94, fit: BoxFit.cover)
+                            : Image.file(
+                                File(_image!.path),
+                                width: 94,
+                                height: 94,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
                     ),
-                  ),
-                  InputTextField(
-                    labelText: "Name",
-                    hint: "Set a name for the Organization",
-                    onChanged: (onChanged) {
-                      orgName = onChanged;
-                    },
-                  ),
-                  InputTextField(
-                    labelText: "Email",
-                    hint: "Organization Email address",
-                    textInputType: TextInputType.emailAddress,
-                    onChanged: (onChanged) {
-                      print(onChanged);
-                      orgEmail = onChanged;
-                    },
-                  ),
-                  InputLargeTextField(
-                      hint: "Write about the Organization",
-                      label: "Description",
-                      controller: _deskText,
-                      maxLength: 200)
-                ],
-              ),
-            ],
-          ),
+                    InputTextField(
+                      labelText: "Name",
+                      hint: "Set a name for the Organization",
+                      onChanged: (onChanged) {
+                        orgName = onChanged;
+                      },
+                    ),
+                    InputTextField(
+                      labelText: "Email",
+                      hint: "Organization Email address",
+                      textInputType: TextInputType.emailAddress,
+                      onChanged: (onChanged) {
+                        print(onChanged);
+                        orgEmail = onChanged;
+                      },
+                    ),
+                    InputLargeTextField(
+                        hint: "Write about the Organization",
+                        label: "Description",
+                        controller: _deskText,
+                        maxLength: 200)
+                  ],
+                ),
+              ],
+            ),
+          ]),
         ),
       ),
     );
