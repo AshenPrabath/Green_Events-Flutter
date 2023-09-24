@@ -4,7 +4,7 @@ import '../pages/add_organization_page.dart';
 import '../pages/bookings_page.dart';
 import '../pages/events_page.dart';
 import '../pages/profile_page.dart';
-import '../pages/search_page.dart';
+import 'favorites_page.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({
@@ -145,8 +145,9 @@ class _EventsPageState extends State<NavigationPage> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            selectedIcon: Icon(Icons.star_outlined),
+            icon: Icon(Icons.star_border),
+            label: 'Favorites',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.add),

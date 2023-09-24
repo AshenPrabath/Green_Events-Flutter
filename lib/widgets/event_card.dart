@@ -1,18 +1,21 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:application8/models/organization_model.dart';
 import 'package:application8/models/ticket_model.dart';
 import 'package:application8/models/user_model.dart';
 import 'package:application8/pages/buy%20Ticket_page.dart';
 import 'package:application8/pages/organization_info_page.dart';
 import 'package:application8/services/event_service.dart';
+import 'package:application8/services/favorites_service.dart';
 import 'package:application8/services/organization_service.dart';
 import 'package:application8/services/ticket_service.dart';
 import 'package:application8/services/user_service.dart';
 import 'package:application8/widgets/free_event_row.dart';
 import 'package:application8/widgets/paid_event_row.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import '../models/event_model.dart';
 
 class EventCard extends StatefulWidget {
@@ -28,6 +31,7 @@ class EventCard extends StatefulWidget {
 
 class _EventCardState extends State<EventCard> {
   Organization? organization;
+  bool isFavorite = false;
   DateTime get dateTime =>
       DateTime.fromMillisecondsSinceEpoch(widget.event.time);
   String get formattedDate => formatTimestampDate(widget.event.time);
@@ -69,8 +73,16 @@ class _EventCardState extends State<EventCard> {
         child: Column(
           children: [
             ListTile(
-              trailing: GestureDetector(
-                  onTap: () {}, child: const Icon(Icons.star_border)),
+              trailing: FavoriteIcon(
+                eventID: widget.event.id,
+                isFavorite: isFavorite, // Replace with your actual condition
+                onToggle: (isFav) {
+                  setState(() {
+                    isFavorite =
+                        isFav; // Update the condition when the icon is toggled
+                  });
+                },
+              ),
               leading: FutureBuilder<Organization>(
                   future: OrganizationService.getOrganizationByUserId(
                       widget.event.userId),
@@ -225,6 +237,44 @@ class _EventCardState extends State<EventCard> {
                 })
           ],
         ),
+      ),
+    );
+  }
+}
+
+class FavoriteIcon extends StatefulWidget {
+  final bool isFavorite;
+  final Function(bool) onToggle;
+  final String eventID;
+  const FavoriteIcon({
+    Key? key,
+    required this.isFavorite,
+    required this.onToggle,
+    required this.eventID,
+  }) : super(key: key);
+
+  @override
+  State<FavoriteIcon> createState() => _FavoriteIconState();
+}
+
+class _FavoriteIconState extends State<FavoriteIcon> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        widget.onToggle(!widget.isFavorite);
+        if (widget.isFavorite) {
+          // Remove from favorites
+          // You can add the removal logic here
+        } else {
+          FavoritesService.addFavorite(widget.eventID);
+          // Add to favorites
+          ; // Call your addFavorite function
+        }
+      },
+      child: Icon(
+        widget.isFavorite ? Icons.star : Icons.star_border,
+        color: widget.isFavorite ? Theme.of(context).colorScheme.primary : null,
       ),
     );
   }
