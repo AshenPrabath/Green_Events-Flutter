@@ -1,8 +1,8 @@
-import 'package:application8/pages/paymentSuccess_page.dart';
-import 'package:application8/services/booking_service.dart';
+import 'package:green_events_2/pages/paymentSuccess_page.dart';
+import 'package:green_events_2/services/booking_service.dart';
 import 'package:flutter/material.dart';
 
-import 'package:application8/models/ticket_model.dart';
+import 'package:green_events_2/models/ticket_model.dart';
 
 import '../models/event_model.dart';
 import '../widgets/custom_filled_button.dart';
@@ -16,11 +16,11 @@ class EnterCardDetails extends StatefulWidget {
   final int quantity;
 
   const EnterCardDetails({
-    Key? key,
+    super.key,
     required this.event,
     required this.ticket,
     required this.quantity,
-  }) : super(key: key);
+  });
 
   @override
   State<EnterCardDetails> createState() => _EnterCardDetailsState();
@@ -105,30 +105,33 @@ class _EnterCardDetailsState extends State<EnterCardDetails> {
                 padding: const EdgeInsets.symmetric(vertical: 25),
                 child: CustomFilledButton(
                     onPressed: () => BookingService.addBooking(
-                            widget.ticket.id, widget.quantity)
-                        .then(
-                          (value) => ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Your booking is successsful"),
-                            ),
-                          ),
-                        )
-                        .catchError(
-                          (error) => ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(error),
-                            ),
-                          ),
-                        ).then(
-                            (value) {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const PaymentSuccessPage(),
+                                widget.ticket.id, widget.quantity)
+                            .then(
+                              (value) =>
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Your booking is successsful"),
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            )
+                            .catchError(
+                              (error) =>
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(error),
+                                ),
+                              ),
+                            )
+                            .then(
+                          (value) {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const PaymentSuccessPage(),
+                              ),
+                            );
+                          },
+                        ),
                     buttonText: "Pay"),
               )
             ],

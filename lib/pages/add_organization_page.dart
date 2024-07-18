@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:application8/pages/profile_page.dart';
-import 'package:application8/services/organization_service.dart';
-import 'package:application8/widgets/input_large_textfield.dart';
+import 'package:green_events_2/services/organization_service.dart';
+import 'package:green_events_2/widgets/input_large_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/user_service.dart';
-import '../widgets/custom_filled_button.dart';
 import '../widgets/input_textfield.dart';
 
 class AddOrganizationPage extends StatefulWidget {
@@ -49,7 +47,7 @@ class _AddOrganizationPageState extends State<AddOrganizationPage> {
         ),
         actions: [
           isLoading
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : TextButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
@@ -88,7 +86,7 @@ class _AddOrganizationPageState extends State<AddOrganizationPage> {
                       );
                     }
                   },
-                  child: Text("Add"))
+                  child: const Text("Add"))
         ],
       ),
       body: Form(

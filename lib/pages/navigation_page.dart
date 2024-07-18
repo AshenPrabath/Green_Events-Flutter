@@ -21,7 +21,7 @@ class _EventsPageState extends State<NavigationPage> {
     const EventsPage(),
     const SearchPage(),
     const SizedBox.shrink(),
-    BookingsPage(),
+    const BookingsPage(),
     const ProfilePage(),
   ];
 
@@ -53,15 +53,15 @@ class _EventsPageState extends State<NavigationPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddOrganizationPage(
+                    builder: (context) => const AddOrganizationPage(
                         // events: dummyEvents,
                         ),
                   ),
                 );
               },
-              style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onBackground,
-                  textStyle: Theme.of(context).textTheme.titleMedium),
+              // style: TextButton.styleFrom(
+              //     foregroundColor: Theme.of(context).colorScheme.onSurface,
+              //     textStyle: Theme.of(context).textTheme.titleMedium),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -69,7 +69,7 @@ class _EventsPageState extends State<NavigationPage> {
                   children: [
                     Icon(
                       Icons.add_circle_outline,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 26),
@@ -86,15 +86,15 @@ class _EventsPageState extends State<NavigationPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddEventPage(
+                    builder: (context) => const AddEventPage(
                         // events: dummyEvents,
                         ),
                   ),
                 );
               },
-              style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onBackground,
-                  textStyle: Theme.of(context).textTheme.titleMedium),
+              // style: TextButton.styleFrom(
+              //     foregroundColor: Theme.of(context).colorScheme.onSurface,
+              //     textStyle: Theme.of(context).textTheme.titleMedium),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -102,7 +102,7 @@ class _EventsPageState extends State<NavigationPage> {
                   children: [
                     Icon(
                       Icons.event,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 26),

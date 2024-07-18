@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/organization_data.dart';
 
 class ManageOrganizationPage extends StatefulWidget {
   const ManageOrganizationPage({super.key});

@@ -12,7 +12,6 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-
         title: Text(
           "Settings",
           style: Theme.of(context)
@@ -48,13 +47,13 @@ class SettingsPage extends StatelessWidget {
                       ),
                     );
                   },
-                  style: FilledButton.styleFrom(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.secondaryContainer,
-                      textStyle: TextStyle(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .secondaryContainer)),
+                  // style: FilledButton.styleFrom(
+                  //     backgroundColor:
+                  //         Theme.of(context).colorScheme.secondaryContainer,
+                  //     textStyle: TextStyle(
+                  //         color: Theme.of(context)
+                  //             .colorScheme
+                  //             .secondaryContainer)),
                   icon: Icon(
                     Icons.logout,
                     size: 24.0,

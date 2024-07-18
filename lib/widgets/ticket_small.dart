@@ -1,15 +1,19 @@
-import 'package:application8/models/event_model.dart';
-import 'package:application8/models/ticket_model.dart';
+import 'package:green_events_2/models/event_model.dart';
+import 'package:green_events_2/models/ticket_model.dart';
 import 'package:flutter/material.dart';
-import '../widgets/input_textfield.dart';
 import '../widgets/total_price_container.dart';
 
 class ticketSmall extends StatefulWidget {
   final Ticket ticket;
   final Event event;
   final int quantity;
-  
-  const ticketSmall({super.key, required this.ticket, required this.event, required this.quantity,});
+
+  const ticketSmall({
+    super.key,
+    required this.ticket,
+    required this.event,
+    required this.quantity,
+  });
 
   @override
   State<ticketSmall> createState() => _ticketSmallState();
@@ -107,7 +111,7 @@ class _ticketSmallState extends State<ticketSmall> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -125,7 +129,7 @@ class _ticketSmallState extends State<ticketSmall> {
                                         .onSurface),
                           ),
                           Padding(
-                              padding: EdgeInsets.only(bottom: 21),
+                              padding: const EdgeInsets.only(bottom: 21),
                               child: Text(
                                 "LKR ${widget.ticket.ticketPrice.toInt().toString()}",
                                 style: Theme.of(context)
@@ -169,7 +173,9 @@ class _ticketSmallState extends State<ticketSmall> {
                     ],
                   ),
                 ),
-                TotalPriceContainer(totalPrice: widget.ticket.ticketPrice *widget.quantity,)
+                TotalPriceContainer(
+                  totalPrice: widget.ticket.ticketPrice * widget.quantity,
+                )
               ],
             ),
           ),

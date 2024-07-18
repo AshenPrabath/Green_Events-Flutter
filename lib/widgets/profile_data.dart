@@ -6,9 +6,9 @@ import '../pages/settings_page.dart';
 class ProfileData extends StatelessWidget {
   final User user;
   const ProfileData({
-    Key? key,
+    super.key,
     required this.user,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,14 @@ class ProfileData extends StatelessWidget {
                   Text(
                     user.name,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground),
+                        color: Theme.of(context).colorScheme.onSurface),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       user.email,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onBackground),
+                          color: Theme.of(context).colorScheme.onSurface),
                     ),
                   ),
                   GestureDetector(
@@ -86,13 +86,17 @@ class ProfileData extends StatelessWidget {
             children: [
               Text(
                 "Phone Number",
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
               Text(
                 user.phone,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ],
           ),
@@ -104,13 +108,17 @@ class ProfileData extends StatelessWidget {
             children: [
               Text(
                 "Faculty",
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
               Text(
                 user.faculty,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ],
           ),
@@ -149,14 +157,14 @@ class ProfileData extends StatelessWidget {
             //   ),
             // ),
             child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                side: BorderSide(
-                    width: 1,
-                    color: Theme.of(context).colorScheme.outlineVariant),
-              ),
+              // style: OutlinedButton.styleFrom(
+              //   shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(12.0),
+              //   ),
+              //   side: BorderSide(
+              //       width: 1,
+              //       color: Theme.of(context).colorScheme.outlineVariant),
+              // ),
               onPressed: () {
                 Navigator.push(
                   context,

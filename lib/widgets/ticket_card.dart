@@ -1,5 +1,5 @@
-import 'package:application8/services/event_service.dart';
-import 'package:application8/services/user_service.dart';
+import 'package:green_events_2/services/event_service.dart';
+import 'package:green_events_2/services/user_service.dart';
 import 'package:flutter/material.dart';
 
 import '../models/event_model.dart';
@@ -10,10 +10,11 @@ class TicketCard extends StatelessWidget {
   final String eventId;
   final Ticket ticket;
   const TicketCard({
-    Key? key,
+    super.key,
     // required this.event,
-    required this.ticket, required this.eventId,
-  }) : super(key: key);
+    required this.ticket,
+    required this.eventId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +39,28 @@ class TicketCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 11.0),
                   child: FutureBuilder<Event>(
-                    future: EventService.getEventById(eventId),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        final err = snapshot.error;
-                        if (err is AuthFailure) {
-                        return Text(err.message);
+                      future: EventService.getEventById(eventId),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          final err = snapshot.error;
+                          if (err is AuthFailure) {
+                            return Text(err.message);
+                          }
                         }
-                      }
-                      if (snapshot.hasData) {
-                        return Text(
-                          snapshot.data!.title,
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
-                        );
-                        
-                      }
-                      return const Text("Loading..");
-                    }
-                  ),
+                        if (snapshot.hasData) {
+                          return Text(
+                            snapshot.data!.title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
+                          );
+                        }
+                        return const Text("Loading..");
+                      }),
                 ),
                 Text(
                   "Ticket Count : ${ticket.ticketCount}",

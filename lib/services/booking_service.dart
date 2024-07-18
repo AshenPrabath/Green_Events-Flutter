@@ -1,4 +1,4 @@
-import 'package:application8/models/booking_model.dart';
+import 'package:green_events_2/models/booking_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'user_service.dart';

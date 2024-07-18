@@ -1,8 +1,7 @@
-import 'package:application8/models/booking_model.dart';
-import 'package:application8/services/booking_service.dart';
+import 'package:green_events_2/models/booking_model.dart';
+import 'package:green_events_2/services/booking_service.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ticket_minicard.dart';
-import '../models/event_model.dart';
 
 class BookingsPage extends StatelessWidget {
   const BookingsPage({super.key});
@@ -25,14 +24,12 @@ class BookingsPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: FutureBuilder<List<Booking>>(
           future: BookingService.getBookingsByUser(),
-          builder: ( context,  snapshot) {
-
+          builder: (context, snapshot) {
             if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
+              return Text(snapshot.error.toString());
+            }
 
             if (snapshot.hasData) {
-              
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (BuildContext context, int index) {

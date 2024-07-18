@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_month_picker/flutter_month_picker.dart';
 
 class MonthPickerTextfield extends StatefulWidget {
   final String hint;
   final Function(DateTime)? onDatePicked;
   const MonthPickerTextfield({
-    Key? key,
+    super.key,
     required this.hint,
     this.onDatePicked,
-  }) : super(key: key);
+  });
 
   @override
   State<MonthPickerTextfield> createState() => _DatePickerTextFieldState();
@@ -41,7 +40,7 @@ class _DatePickerTextFieldState extends State<MonthPickerTextfield> {
   }
 
   Future<void> _selectDate() async {
-    final DateTime? picked = await showMonthPicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2020),

@@ -1,6 +1,6 @@
 {
-    "name": "nsbm_eventmanagentapplication",
-    "short_name": "nsbm_eventmanagentapplication",
+    "name": "green_events_2",
+    "short_name": "green_events_2",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

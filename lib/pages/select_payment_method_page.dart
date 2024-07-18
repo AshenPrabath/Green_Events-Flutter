@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:application8/models/event_model.dart';
+import 'package:green_events_2/models/event_model.dart';
 
 import '../models/ticket_model.dart';
 import '../pages/enter_card_details.dart';
@@ -12,19 +12,19 @@ class SelectPaymentMethod extends StatefulWidget {
   final Ticket ticket;
   final int quantity;
   const SelectPaymentMethod({
-    Key? key,
+    super.key,
     required this.event,
     required this.ticket,
     required this.quantity,
-  }) : super(key: key);
+  });
 
   @override
   State<SelectPaymentMethod> createState() => _SelectPaymentMethodState();
 }
 
 class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
-   String ticketID="";
-   int? quantity;
+  String ticketID = "";
+  int? quantity;
   int selectedButtonIndex = -1;
   Ticket? selectedTicket;
   Event? selectedEvent;
@@ -75,12 +75,12 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                 height: 50,
                 child: FilledButton(
                     onPressed: () {},
-                    style: FilledButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        textStyle: TextStyle(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer)),
+                    // style: FilledButton.styleFrom(
+                    //     backgroundColor: Theme.of(context).colorScheme.primary,
+                    //     textStyle: TextStyle(
+                    //         color: Theme.of(context)
+                    //             .colorScheme
+                    //             .secondaryContainer)),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 1),
                       child: CustomFilledButton(
@@ -88,8 +88,10 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                       EnterCardDetails(event: widget.event, ticket: widget.ticket, quantity:widget.quantity)),
+                                  builder: (context) => EnterCardDetails(
+                                      event: widget.event,
+                                      ticket: widget.ticket,
+                                      quantity: widget.quantity)),
                             );
                           },
                           buttonText: "Confirm"),

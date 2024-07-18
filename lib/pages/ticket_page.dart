@@ -1,6 +1,6 @@
-import 'package:application8/models/booking_model.dart';
-import 'package:application8/models/event_model.dart';
-import 'package:application8/models/ticket_model.dart';
+import 'package:green_events_2/models/booking_model.dart';
+import 'package:green_events_2/models/event_model.dart';
+import 'package:green_events_2/models/ticket_model.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/ticket.dart';
@@ -10,9 +10,11 @@ class TicketPage extends StatelessWidget {
   final Booking booking;
   final Ticket ticket;
   const TicketPage({
-    Key? key,
-    required this.event, required this.booking, required this.ticket,
-  }) : super(key: key);
+    super.key,
+    required this.event,
+    required this.booking,
+    required this.ticket,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,11 @@ class TicketPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(23.0),
-        child: TicketWidget(event: event, booking: booking, ticket: ticket,),
+        child: TicketWidget(
+          event: event,
+          booking: booking,
+          ticket: ticket,
+        ),
       ),
     );
   }

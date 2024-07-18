@@ -1,5 +1,5 @@
-import 'package:application8/models/event_model.dart';
-import 'package:application8/models/favorites_model.dart';
+import 'package:green_events_2/models/event_model.dart';
+import 'package:green_events_2/models/favorites_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'user_service.dart';

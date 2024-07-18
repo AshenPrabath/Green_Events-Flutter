@@ -3,27 +3,26 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:application8/models/organization_model.dart';
-import 'package:application8/models/ticket_model.dart';
-import 'package:application8/models/user_model.dart';
-import 'package:application8/pages/buy%20Ticket_page.dart';
-import 'package:application8/pages/organization_info_page.dart';
-import 'package:application8/services/event_service.dart';
-import 'package:application8/services/favorites_service.dart';
-import 'package:application8/services/organization_service.dart';
-import 'package:application8/services/ticket_service.dart';
-import 'package:application8/services/user_service.dart';
-import 'package:application8/widgets/free_event_row.dart';
-import 'package:application8/widgets/paid_event_row.dart';
+import 'package:green_events_2/models/organization_model.dart';
+import 'package:green_events_2/models/ticket_model.dart';
+import 'package:green_events_2/models/user_model.dart';
+import 'package:green_events_2/pages/buy%20Ticket_page.dart';
+import 'package:green_events_2/pages/organization_info_page.dart';
+import 'package:green_events_2/services/favorites_service.dart';
+import 'package:green_events_2/services/organization_service.dart';
+import 'package:green_events_2/services/ticket_service.dart';
+import 'package:green_events_2/services/user_service.dart';
+import 'package:green_events_2/widgets/free_event_row.dart';
+import 'package:green_events_2/widgets/paid_event_row.dart';
 
 import '../models/event_model.dart';
 
 class EventCard extends StatefulWidget {
   final Event event;
   const EventCard({
-    Key? key,
+    super.key,
     required this.event,
-  }) : super(key: key);
+  });
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -247,11 +246,11 @@ class FavoriteIcon extends StatefulWidget {
   final Function(bool) onToggle;
   final String eventID;
   const FavoriteIcon({
-    Key? key,
+    super.key,
     required this.isFavorite,
     required this.onToggle,
     required this.eventID,
-  }) : super(key: key);
+  });
 
   @override
   State<FavoriteIcon> createState() => _FavoriteIconState();
@@ -269,7 +268,7 @@ class _FavoriteIconState extends State<FavoriteIcon> {
         } else {
           FavoritesService.addFavorite(widget.eventID);
           // Add to favorites
-          ; // Call your addFavorite function
+// Call your addFavorite function
         }
       },
       child: Icon(

@@ -8,14 +8,14 @@ class CustomFilledButton extends StatelessWidget {
   final double? width;
   final bool? isDisabled;
   const CustomFilledButton({
-    Key? key,
+    super.key,
     this.onPressed,
     required this.buttonText,
     this.buttonColor,
     this.buttonTextColor,
-    this.width, 
+    this.width,
     this.isDisabled,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +23,11 @@ class CustomFilledButton extends StatelessWidget {
       width: width ?? double.infinity,
       height: 50,
       child: FilledButton(
-        style: FilledButton.styleFrom(
-          backgroundColor: buttonColor,
-        ),
+        // style: FilledButton.styleFrom(
+        //   backgroundColor: buttonColor,
+        // ),
         onPressed: onPressed,
-        
+
         child: Text(
           buttonText,
           style: TextStyle(color: buttonTextColor),

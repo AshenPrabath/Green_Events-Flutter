@@ -1,14 +1,14 @@
-import 'package:application8/models/organization_model.dart';
+import 'package:green_events_2/models/organization_model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:application8/widgets/organization_data.dart';
+import 'package:green_events_2/widgets/organization_data.dart';
 
 class OrganizationInfoPage extends StatelessWidget {
   Organization organization;
   OrganizationInfoPage({
-    Key? key,
+    super.key,
     required this.organization,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 // add_ticket_dialog.dart
-import 'package:application8/services/ticket_service.dart';
 import 'package:flutter/material.dart';
+import 'package:green_events_2/services/ticket_service.dart';
 import '../models/ticket_model.dart';
 import '../widgets/input_textfield.dart';
 
@@ -8,7 +8,7 @@ class AddTicketDialog extends StatefulWidget {
   final Function(Ticket) onTicketAdded;
   final String eventId;
 
-  const AddTicketDialog({required this.onTicketAdded, required this.eventId});
+  const AddTicketDialog({super.key, required this.onTicketAdded, required this.eventId});
 
   @override
   State<AddTicketDialog> createState() => _AddTicketDialogState();

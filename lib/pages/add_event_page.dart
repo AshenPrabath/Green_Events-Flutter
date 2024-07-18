@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:application8/pages/navigation_page.dart';
+import 'package:green_events_2/pages/navigation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,8 +15,8 @@ import '../widgets/time_picker_textfield.dart';
 
 class AddEventPage extends StatefulWidget {
   const AddEventPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<AddEventPage> createState() => _AddEventPageState();

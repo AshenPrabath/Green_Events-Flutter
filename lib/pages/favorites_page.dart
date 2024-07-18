@@ -1,7 +1,7 @@
-import 'package:application8/models/event_model.dart';
-import 'package:application8/models/favorites_model.dart';
-import 'package:application8/services/favorites_service.dart';
-import 'package:application8/widgets/event_card.dart';
+import 'package:green_events_2/models/event_model.dart';
+import 'package:green_events_2/models/favorites_model.dart';
+import 'package:green_events_2/services/favorites_service.dart';
+import 'package:green_events_2/widgets/event_card.dart';
 import 'package:flutter/material.dart';
 
 import '../Services/event_service.dart';
@@ -42,9 +42,10 @@ class SearchPage extends StatelessWidget {
                             if (snapshot.hasData) {
                               return EventCard(event: snapshot.data!);
                             }
-                            return Text("Loading...");
+                            return const Text("Loading...");
                           });
                     }
+                    return null;
                   });
             }
             return const Center(

@@ -1,17 +1,16 @@
-import 'package:application8/Services/user_service.dart';
-import 'package:application8/services/organization_service.dart';
+import 'package:green_events_2/Services/user_service.dart';
 import 'package:flutter/material.dart';
 
-import 'package:application8/models/organization_model.dart';
+import 'package:green_events_2/models/organization_model.dart';
 
 import '../models/user_model.dart';
 
 class OrganizationData extends StatefulWidget {
   Organization organization;
   OrganizationData({
-    Key? key,
+    super.key,
     required this.organization,
-  }) : super(key: key);
+  });
 
   @override
   State<OrganizationData> createState() => _OrganizationInfoState();
@@ -43,14 +42,14 @@ class _OrganizationInfoState extends State<OrganizationData> {
                   Text(
                     widget.organization.orgName,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground),
+                        color: Theme.of(context).colorScheme.onSurface),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       widget.organization.orgEmail,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onBackground),
+                          color: Theme.of(context).colorScheme.onSurface),
                     ),
                   ),
                 ],
@@ -77,8 +76,10 @@ class _OrganizationInfoState extends State<OrganizationData> {
             Expanded(
               child: Text(
                 widget.organization.orgDesc,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
           ],
@@ -126,7 +127,7 @@ class _OrganizationInfoState extends State<OrganizationData> {
                                   ?.copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground),
+                                          .onSurface),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 0),
@@ -138,7 +139,7 @@ class _OrganizationInfoState extends State<OrganizationData> {
                                     ?.copyWith(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onBackground),
+                                            .onSurface),
                               ),
                             ),
                           ],
@@ -147,7 +148,7 @@ class _OrganizationInfoState extends State<OrganizationData> {
                     ],
                   );
                 }
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }),
         ),
         Padding(
@@ -159,15 +160,15 @@ class _OrganizationInfoState extends State<OrganizationData> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        side: BorderSide(
-                            width: 1,
-                            color:
-                                Theme.of(context).colorScheme.outlineVariant),
-                      ),
+                      // style: OutlinedButton.styleFrom(
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(12.0),
+                      //   ),
+                      //   side: BorderSide(
+                      //       width: 1,
+                      //       color:
+                      //           Theme.of(context).colorScheme.outlineVariant),
+                      // ),
                       onPressed: () {},
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 15),
@@ -183,7 +184,7 @@ class _OrganizationInfoState extends State<OrganizationData> {
                       ),
                     );
                   }
-                  return Text("Loading...");
+                  return const Text("Loading...");
                 }),
           ),
         ),

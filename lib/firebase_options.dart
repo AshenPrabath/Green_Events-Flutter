@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,29 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCwTCbKjkv44FOh1BqFjn9nTmg9zBj4UG8',
-    appId: '1:418536885912:web:8efd5d309f084cbb540aed',
-    messagingSenderId: '418536885912',
-    projectId: 'flutter-material-components-v1',
-    authDomain: 'flutter-material-components-v1.firebaseapp.com',
-    storageBucket: 'flutter-material-components-v1.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCOzyCo5l4wUhTTiCPHTKRzjAwRQsJXMnM',
-    appId: '1:418536885912:android:e9e4292d25ca2c59540aed',
+    appId: '1:418536885912:android:c5aa7b7200d74e3f540aed',
     messagingSenderId: '418536885912',
     projectId: 'flutter-material-components-v1',
     storageBucket: 'flutter-material-components-v1.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBN5BtbBbnunH3Sa1LY6ptVEjZfDO-re_0',
-    appId: '1:418536885912:ios:544cf44b156deb42540aed',
-    messagingSenderId: '418536885912',
-    projectId: 'flutter-material-components-v1',
-    storageBucket: 'flutter-material-components-v1.appspot.com',
-    iosBundleId: 'com.application.app',
   );
 }

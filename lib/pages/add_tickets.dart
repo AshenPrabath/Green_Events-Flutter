@@ -1,5 +1,5 @@
-import 'package:application8/pages/navigation_page.dart';
-import 'package:application8/services/ticket_service.dart';
+import 'package:green_events_2/pages/navigation_page.dart';
+import 'package:green_events_2/services/ticket_service.dart';
 import 'package:flutter/material.dart';
 
 import '../models/ticket_model.dart';
@@ -11,10 +11,10 @@ class AddTicket extends StatefulWidget {
   // final Event event;
   final String eventId;
   const AddTicket({
-    Key? key,
+    super.key,
     required this.eventId,
     // required this.event,
-  }) : super(key: key);
+  });
 
   @override
   State<AddTicket> createState() => _AddTicketState();
@@ -43,11 +43,9 @@ class _AddTicketState extends State<AddTicket> {
           TextButton(
             onPressed: () {
               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const NavigationPage()),
-                              );
+                context,
+                MaterialPageRoute(builder: (context) => const NavigationPage()),
+              );
             },
             child: Text(
               "Publish",
@@ -65,16 +63,21 @@ class _AddTicketState extends State<AddTicket> {
           stream: TicketService.getTicketsByEventId(eventId: widget.eventId),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Center(child: Text(snapshot.error.toString()),);
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
             }
             print(snapshot);
             if (snapshot.hasData) {
               final List<Ticket> tickets = snapshot.data!;
-      
+
               return ListView.builder(
                   itemCount: tickets.length,
                   itemBuilder: (context, index) {
-                    return TicketCard(ticket: tickets[index],eventId: widget.eventId,);
+                    return TicketCard(
+                      ticket: tickets[index],
+                      eventId: widget.eventId,
+                    );
                   });
             }
             return const Center(
@@ -95,7 +98,7 @@ class _AddTicketState extends State<AddTicket> {
             },
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -26,9 +26,66 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:418536885912:android:d12a847a0534fc59540aed",
+        "android_client_info": {
+          "package_name": "com.example.firebase_example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOzyCo5l4wUhTTiCPHTKRzjAwRQsJXMnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:418536885912:android:393ec34ecde9ed8f540aed",
         "android_client_info": {
           "package_name": "com.example.flutter_material_components_v1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOzyCo5l4wUhTTiCPHTKRzjAwRQsJXMnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418536885912:android:c5aa7b7200d74e3f540aed",
+        "android_client_info": {
+          "package_name": "com.example.green_events_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOzyCo5l4wUhTTiCPHTKRzjAwRQsJXMnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418536885912:android:b1a401fb14b985ce540aed",
+        "android_client_info": {
+          "package_name": "com.greenevents.app"
         }
       },
       "oauth_client": [],

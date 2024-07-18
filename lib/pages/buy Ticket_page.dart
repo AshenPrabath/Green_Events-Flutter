@@ -1,6 +1,5 @@
-import 'package:application8/models/event_model.dart';
-import 'package:application8/pages/select_payment_method_page.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:green_events_2/models/event_model.dart';
+import 'package:green_events_2/pages/select_payment_method_page.dart';
 import 'package:flutter/material.dart';
 import '../models/ticket_model.dart';
 import '../widgets/custom_filled_button.dart';
@@ -9,8 +8,8 @@ import '../widgets/ticket_medium.dart';
 import '../widgets/total_price_container.dart';
 
 class BuyTicketPage extends StatefulWidget {
-  final Event event ;
-  final List<Ticket> tickets ;
+  final Event event;
+  final List<Ticket> tickets;
   const BuyTicketPage({super.key, required this.event, required this.tickets});
 
   @override
@@ -18,25 +17,24 @@ class BuyTicketPage extends StatefulWidget {
 }
 
 class _BuyTicketPageState extends State<BuyTicketPage> {
-  double totalPrice=0;
-  int ticketCount=0;
-  double ticketPrice=0;
+  double totalPrice = 0;
+  int ticketCount = 0;
+  double ticketPrice = 0;
   Ticket? selectedTicket;
   Event? selectedEvent;
   int selectedButtonIndex = -1;
 
   void incrementTicketCount() {
     setState(() {
-
       ticketCount++;
-      totalPrice=ticketCount*ticketPrice;
+      totalPrice = ticketCount * ticketPrice;
     });
   }
 
   void decrementTicketCount() {
     setState(() {
       ticketCount--;
-      totalPrice=ticketCount*ticketPrice;
+      totalPrice = ticketCount * ticketPrice;
     });
   }
 
@@ -49,12 +47,11 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
     });
   }
 
-  List<Ticket>  sortedTickets() {
-    
+  List<Ticket> sortedTickets() {
     final List<Ticket> tickets = widget.tickets;
     widget.tickets.sort((a, b) => a.ticketPrice.compareTo(b.ticketPrice));
     return tickets;
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,25 +73,25 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Column(
                 children: [
-                   TicketMedium( event: widget.event,),
+                  TicketMedium(
+                    event: widget.event,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 11),
                     child: Expanded(
-                      
                       child: ListView.builder(
-                        itemCount: widget.tickets.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context,index){
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 11),
-                            child: CustomToggleButton(
-                              isSelected: selectedButtonIndex==index, 
-                              onSelect:(val)=> onSelectButton(index,val), 
-                              ticket: sortedTickets()[index],
+                          itemCount: widget.tickets.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 11),
+                              child: CustomToggleButton(
+                                isSelected: selectedButtonIndex == index,
+                                onSelect: (val) => onSelectButton(index, val),
+                                ticket: sortedTickets()[index],
                               ),
-                          );
-                        }
-                        ),
+                            );
+                          }),
                     ),
                     // child: OverflowBar(
                     //   overflowSpacing: 11,
@@ -128,17 +125,16 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
                         FilledButton(
                           onPressed: () {
                             if (ticketCount > 0) {
-                            
                               decrementTicketCount();
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            padding: const EdgeInsets.all(15),
-                            backgroundColor: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                          ),
+                          // style: ElevatedButton.styleFrom(
+                          //   shape: const CircleBorder(),
+                          //   padding: const EdgeInsets.all(15),
+                          //   backgroundColor: Theme.of(context)
+                          //       .colorScheme
+                          //       .secondaryContainer,
+                          // ),
                           child: Icon(
                             Icons.remove,
                             color: Theme.of(context).colorScheme.onSurface,
@@ -162,13 +158,13 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
                           onPressed: () {
                             incrementTicketCount();
                           },
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            padding: const EdgeInsets.all(15),
-                            backgroundColor: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                          ),
+                          // style: ElevatedButton.styleFrom(
+                          //   shape: const CircleBorder(),
+                          //   padding: const EdgeInsets.all(15),
+                          //   backgroundColor: Theme.of(context)
+                          //       .colorScheme
+                          //       .secondaryContainer,
+                          // ),
                           child: Icon(
                             Icons.add,
                             color: Theme.of(context).colorScheme.onSurface,
@@ -178,20 +174,28 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
                       ],
                     ),
                   ),
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.only(bottom: 9),
-                    child: TotalPriceContainer(totalPrice: totalPrice,),
+                    child: TotalPriceContainer(
+                      totalPrice: totalPrice,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: CustomFilledButton(
-                        onPressed: ticketCount==0? null : () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>  SelectPaymentMethod(event: widget.event, ticket: selectedTicket!, quantity: ticketCount)),
-                            );
-                        }, buttonText: "Buy Ticket(s)"),
+                        onPressed: ticketCount == 0
+                            ? null
+                            : () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SelectPaymentMethod(
+                                          event: widget.event,
+                                          ticket: selectedTicket!,
+                                          quantity: ticketCount)),
+                                );
+                              },
+                        buttonText: "Buy Ticket(s)"),
                   )
                 ],
               ),

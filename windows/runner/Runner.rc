@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "nsbm_eventmanagentapplication" "\0"
+            VALUE "FileDescription", "green_events_2" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "nsbm_eventmanagentapplication" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "nsbm_eventmanagentapplication.exe" "\0"
-            VALUE "ProductName", "nsbm_eventmanagentapplication" "\0"
+            VALUE "InternalName", "green_events_2" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "green_events_2.exe" "\0"
+            VALUE "ProductName", "green_events_2" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:application8/models/favorites_model.dart';
+import 'package:green_events_2/models/favorites_model.dart';
 
 class Favoritecard extends StatefulWidget {
   Favorites favorites;
   Favoritecard({
-    Key? key,
+    super.key,
     required this.favorites,
-  }) : super(key: key);
+  });
 
   @override
   State<Favoritecard> createState() => _FavoritecardState();
